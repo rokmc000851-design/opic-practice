@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>오픽 주제별 답변 관리</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f7;
+      --panel: #ffffff;
+      --ink: #172026;
+      --muted: #66737d;
+      --line: #dce3e8;
+      --brand: #126c64;
+      --brand-dark: #0d504a;
+      --soft: #e7f3f1;
+      --warn: #fff0df;
+      --danger: #a33822;
+      --shadow: 0 10px 28px rgba(23, 32, 38, .09);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    button, input, select, textarea { font: inherit; }
+    button { border: 0; cursor: pointer; }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+    }
+
+    aside {
+      background: #172026;
+      color: #f7fbfb;
+      padding: 26px 20px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #2fb5a7;
+      color: #102124;
+      font-weight: 800;
+    }
+
+    h1 { margin: 0; font-size: 22px; line-height: 1.2; }
+    .sub { margin: 4px 0 0; color: #aac0c4; font-size: 13px; }
+    .side-section { margin-top: 22px; }
+    .side-title {
+      margin: 0 0 10px;
+      color: #aac0c4;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .topic-list { display: grid; gap: 7px; }
+    .topic-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 6px;
+      align-items: center;
+    }
+    .topic-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 11px;
+      border-radius: 8px;
+      background: transparent;
+      color: #f7fbfb;
+      text-align: left;
+      min-width: 0;
+    }
+    .topic-btn:hover, .topic-btn.active { background: rgba(255, 255, 255, .11); }
+    .topic-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pill {
+      min-width: 26px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .14);
+      text-align: center;
+      font-size: 12px;
+      color: #dbe8ea;
+    }
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .09);
+      color: #eef7f8;
+    }
+    .icon-btn:hover { background: rgba(255, 255, 255, .16); }
+    .topic-tools {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .side-input {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .08);
+      color: #fff;
+      outline: 0;
+      padding: 0 10px;
+    }
+    .side-input::placeholder { color: #aac0c4; }
+    .side-actions { display: grid; gap: 8px; }
+    .ghost-btn {
+      min-height: 40px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      background: transparent;
+      color: #f7fbfb;
+    }
+
+    main { min-width: 0; padding: 28px; }
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 170px auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search, .select, .input, .textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      outline: 0;
+    }
+    .search, .select, .input { min-height: 44px; padding: 0 12px; }
+    .textarea {
+      min-height: 132px;
+      resize: vertical;
+      padding: 12px;
+      line-height: 1.55;
+    }
+    .textarea.ko { min-height: 118px; background: #fffdf8; }
+    .textarea.en { min-height: 154px; }
+
+    .primary-btn, .secondary-btn, .danger-btn {
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .primary-btn { background: var(--brand); color: white; }
+    .primary-btn:hover { background: var(--brand-dark); }
+    .secondary-btn { background: var(--soft); color: #0b5951; }
+    .danger-btn { background: #ffe8e1; color: var(--danger); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .stat b { display: block; font-size: 26px; margin-bottom: 4px; }
+    .stat span { color: var(--muted); font-size: 13px; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(280px, 430px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .question-list, .editor {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .question-list { overflow: hidden; }
+    .list-head, .editor-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .editor-top { padding: 0 0 16px; margin-bottom: 16px; }
+    .list-head h2, .editor h2 { margin: 0; font-size: 17px; }
+    .cards { max-height: calc(100vh - 258px); overflow: auto; }
+    .q-card {
+      width: 100%;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      text-align: left;
+    }
+    .q-card:hover, .q-card.active { background: #f2faf8; }
+    .q-card strong { display: block; margin-bottom: 8px; line-height: 1.35; }
+    .preview {
+      margin: 0 0 9px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .meta { display: flex; flex-wrap: wrap; gap: 6px; color: var(--muted); font-size: 12px; }
+    .tag { padding: 3px 7px; border-radius: 999px; background: #eef2f4; }
+    .tag.ready { background: #e4f5de; color: #2f6524; }
+    .tag.draft { background: var(--warn); color: #8f5418; }
+    .tag.need { background: #ffe8e1; color: var(--danger); }
+
+    .editor { padding: 18px; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 190px 1fr 170px;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .wide { grid-column: 1 / -1; }
+    .question-field { grid-column: 2 / -1; }
+    .answer-tools {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #eef2f4;
+      color: var(--ink);
+    }
+    .chip.active { background: var(--brand); color: #fff; }
+    .notes {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .note {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfd;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .empty { padding: 28px 16px; color: var(--muted); text-align: center; line-height: 1.5; }
+    .hidden-file { display: none; }
+
+    @media (max-width: 1100px) {
+      .workspace, .toolbar { grid-template-columns: 1fr; }
+      .cards { max-height: none; }
+    }
+    @media (max-width: 920px) {
+      .app { grid-template-columns: 1fr; }
+      aside { position: static; height: auto; }
+      .topic-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      main { padding: 18px; }
+      .topic-list, .stats, .form-grid, .notes, .answer-tools { grid-template-columns: 1fr; }
+      .question-field { grid-column: 1; }
+      .editor-top, .list-head { align-items: stretch; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand">
+        <div class="mark">OP</div>
+        <div>
+          <h1>오픽 답변 보드</h1>
+          <p class="sub">주제별 예상 문제와 한영 답변 관리</p>
+        </div>
+      </div>
+
+      <section class="side-section">
+        <p class="side-title">Topics</p>
+        <div class="topic-tools">
+          <input class="side-input" id="topicNameInput" type="text" placeholder="새 주제 이름">
+          <button class="icon-btn" id="addTopicBtn" type="button" title="주제 추가">+</button>
+        </div>
+        <div class="topic-list" id="topicList"></div>
+      </section>
+
+      <section class="side-section">
+        <p class="side-title">Data</p>
+        <div class="side-actions">
+          <button class="ghost-btn" id="exportBtn" type="button">내보내기</button>
+          <button class="ghost-btn" id="importBtn" type="button">가져오기</button>
+          <button class="ghost-btn" id="resetBtn" type="button">오픽 기본 세트 복원</button>
+          <input class="hidden-file" id="importFile" type="file" accept="application/json">
+        </div>
+      </section>
+    </aside>
+
+    <main>
+      <div class="toolbar">
+        <input class="search" id="searchInput" type="search" placeholder="질문, 한글 답변, 영어 답변, 주제 검색">
+        <select class="select" id="statusFilter" aria-label="상태 필터">
+          <option value="all">전체 상태</option>
+          <option value="need">작성 필요</option>
+          <option value="draft">초안</option>
+          <option value="ready">암기 가능</option>
+        </select>
+        <button class="primary-btn" id="newBtn" type="button">+ 새 문제</button>
+      </div>
+
+      <section class="stats" id="stats"></section>
+
+      <section class="workspace">
+        <div class="question-list">
+          <div class="list-head">
+            <h2>예상 문제</h2>
+            <button class="secondary-btn" id="practiceBtn" type="button">랜덤 연습</button>
+          </div>
+          <div class="cards" id="cards"></div>
+        </div>
+
+        <div class="editor">
+          <div class="editor-top">
+            <h2 id="editorTitle">답변 편집</h2>
+            <button class="danger-btn" id="deleteBtn" type="button">문제 삭제</button>
+          </div>
+
+          <div class="form-grid">
+            <label>주제
+              <select class="select" id="topicInput"></select>
+            </label>
+            <label class="question-field">예상 질문
+              <input class="input" id="questionInput" type="text">
+            </label>
+            <label>상태
+              <select class="select" id="statusInput">
+                <option value="need">작성 필요</option>
+                <option value="draft">초안</option>
+                <option value="ready">암기 가능</option>
+              </select>
+            </label>
+            <label class="wide">한글 답변
+              <textarea class="textarea ko" id="answerKoInput" placeholder="말하고 싶은 내용을 한국어로 먼저 정리하세요."></textarea>
+            </label>
+            <label class="wide">영어 답변
+              <textarea class="textarea en" id="answerEnInput" placeholder="한국어 답변을 자연스러운 영어 스피킹 문장으로 옮겨 적으세요."></textarea>
+            </label>
+          </div>
+
+          <div class="answer-tools">
+            <div class="chips" id="levelChips" aria-label="난이도"></div>
+            <button class="primary-btn" id="saveBtn" type="button">저장</button>
+          </div>
+
+          <div class="notes">
+            <div class="note"><b>구성</b><br>묘사, 습관, 과거경험, 비교, 문제해결 중 어떤 패턴인지 먼저 정하세요.</div>
+            <div class="note"><b>한글 답변</b><br>경험의 순서와 감정을 한국어로 잡으면 영어 답변이 훨씬 자연스러워집니다.</div>
+            <div class="note"><b>영어 답변</b><br>문장을 통째로 외우기보다 장소, 행동, 감정 키워드를 고정하세요.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "opik-answer-board-v2";
+    const OLD_STORAGE_KEY = "opik-answer-board-v1";
+    const ALL_TOPIC = "전체";
+    const statusLabel = { need: "작성 필요", draft: "초안", ready: "암기 가능" };
+    const levels = ["쉬움", "보통", "어려움"];
+
+    const defaultTopicNames = [
+      "자기소개", "직장/학교", "집/동네", "가족/친구", "여가-영화/공연", "여가-음악", "여가-독서",
+      "운동/건강", "쇼핑", "음식/외식", "카페/식당", "여행-국내", "여행-해외", "휴가/호텔",
+      "교통", "기술/인터넷", "휴대폰/SNS", "날씨/계절", "명절/전통", "은행/병원/공공장소",
+      "집안일/요리", "반려동물/동식물", "재활용/환경", "돌발 주제", "롤플레이"
+    ];
+
+    function q(topic, question, level = "보통", type = "묘사") {
+      return { id: crypto.randomUUID(), topic, question, status: "need", level, type, answerKo: "", answerEn: "" };
+    }
+
+    const sampleItems = [
+      q("자기소개", "Please introduce yourself.", "쉬움", "기본"),
+      q("자기소개", "Tell me about your personality and what kind of person you are.", "보통", "묘사"),
+      q("자기소개", "What do you usually do on weekdays after work or school?", "보통", "습관"),
+      q("자기소개", "Tell me about a recent change in your life.", "어려움", "과거경험"),
+      q("직장/학교", "Tell me about your workplace or school.", "쉬움", "묘사"),
+      q("직장/학교", "What is your typical day at work or school like?", "보통", "습관"),
+      q("직장/학교", "Describe a memorable project, class, or assignment.", "어려움", "과거경험"),
+      q("직장/학교", "How has your work or school life changed compared to the past?", "어려움", "비교"),
+      q("집/동네", "Describe your home in detail.", "쉬움", "묘사"),
+      q("집/동네", "Tell me about your neighborhood.", "쉬움", "묘사"),
+      q("집/동네", "What do you usually do when you spend time at home?", "보통", "습관"),
+      q("집/동네", "Tell me about a problem you had at home and how you solved it.", "어려움", "문제해결"),
+      q("가족/친구", "Tell me about one of your family members.", "쉬움", "묘사"),
+      q("가족/친구", "What do you usually do with your friends?", "보통", "습관"),
+      q("가족/친구", "Describe a memorable time you spent with your family or friends.", "보통", "과거경험"),
+      q("가족/친구", "How are your relationships with friends different now from when you were younger?", "어려움", "비교"),
+      q("여가-영화/공연", "What kinds of movies or performances do you like?", "쉬움", "묘사"),
+      q("여가-영화/공연", "Tell me about the last movie or performance you watched.", "보통", "과거경험"),
+      q("여가-영화/공연", "How do you usually choose a movie or show?", "보통", "습관"),
+      q("여가-영화/공연", "Compare watching a movie at home and watching it in a theater.", "어려움", "비교"),
+      q("여가-음악", "What kind of music do you enjoy listening to?", "쉬움", "묘사"),
+      q("여가-음악", "When and where do you usually listen to music?", "쉬움", "습관"),
+      q("여가-음악", "Tell me about a concert or music event you remember.", "보통", "과거경험"),
+      q("여가-음악", "How has your taste in music changed over time?", "어려움", "비교"),
+      q("여가-독서", "What kinds of books or articles do you like reading?", "보통", "묘사"),
+      q("여가-독서", "Tell me about a book or article that impressed you.", "보통", "과거경험"),
+      q("여가-독서", "Where and when do you usually read?", "쉬움", "습관"),
+      q("여가-독서", "Do people read differently now compared to the past?", "어려움", "비교"),
+      q("운동/건강", "What kind of exercise do you like?", "쉬움", "묘사"),
+      q("운동/건강", "Describe your regular exercise routine.", "보통", "습관"),
+      q("운동/건강", "Tell me about a time you started or stopped exercising.", "보통", "과거경험"),
+      q("운동/건강", "What do you do when you feel tired or stressed?", "보통", "문제해결"),
+      q("쇼핑", "Where do you usually go shopping?", "쉬움", "묘사"),
+      q("쇼핑", "What do you usually buy online or offline?", "쉬움", "습관"),
+      q("쇼핑", "Tell me about a shopping experience that went wrong.", "어려움", "문제해결"),
+      q("쇼핑", "How is online shopping different from shopping in stores?", "어려움", "비교"),
+      q("음식/외식", "What kind of food do you like?", "쉬움", "묘사"),
+      q("음식/외식", "Tell me about your favorite restaurant.", "쉬움", "묘사"),
+      q("음식/외식", "Describe a memorable meal you had recently.", "보통", "과거경험"),
+      q("음식/외식", "How have your eating habits changed?", "어려움", "비교"),
+      q("카페/식당", "Tell me about a cafe you often visit.", "쉬움", "묘사"),
+      q("카페/식당", "What do you usually order at cafes or restaurants?", "쉬움", "습관"),
+      q("카페/식당", "Describe a bad service experience at a cafe or restaurant.", "어려움", "문제해결"),
+      q("카페/식당", "Call a restaurant and ask about the menu, seats, and opening hours.", "어려움", "롤플레이"),
+      q("여행-국내", "Where do you like to travel in your country?", "쉬움", "묘사"),
+      q("여행-국내", "Describe a memorable domestic trip.", "보통", "과거경험"),
+      q("여행-국내", "What do you usually prepare before a trip?", "보통", "습관"),
+      q("여행-국내", "How was your last trip different from trips you took before?", "어려움", "비교"),
+      q("여행-해외", "Tell me about a foreign country you want to visit.", "보통", "묘사"),
+      q("여행-해외", "Describe an overseas trip you remember.", "보통", "과거경험"),
+      q("여행-해외", "What problems can happen when traveling abroad?", "어려움", "문제해결"),
+      q("여행-해외", "Ask a travel agency about flights, hotels, and tour schedules.", "어려움", "롤플레이"),
+      q("휴가/호텔", "How do you usually spend your vacation?", "쉬움", "습관"),
+      q("휴가/호텔", "Describe a hotel or accommodation you stayed at.", "보통", "묘사"),
+      q("휴가/호텔", "Tell me about a problem you had during a vacation.", "어려움", "문제해결"),
+      q("휴가/호텔", "Call a hotel and ask three or four questions about a room.", "어려움", "롤플레이"),
+      q("교통", "What kind of transportation do you use most often?", "쉬움", "묘사"),
+      q("교통", "Describe your commute or the way you usually move around.", "보통", "습관"),
+      q("교통", "Tell me about a transportation problem you experienced.", "어려움", "문제해결"),
+      q("교통", "Compare public transportation and driving.", "어려움", "비교"),
+      q("기술/인터넷", "What technology do you use every day?", "쉬움", "묘사"),
+      q("기술/인터넷", "How do you usually use the internet?", "쉬움", "습관"),
+      q("기술/인터넷", "Tell me about a time when technology caused a problem.", "어려움", "문제해결"),
+      q("기술/인터넷", "How has technology changed people's lives?", "어려움", "비교"),
+      q("휴대폰/SNS", "Describe your smartphone and how you use it.", "쉬움", "묘사"),
+      q("휴대폰/SNS", "What apps do you use most often?", "쉬움", "습관"),
+      q("휴대폰/SNS", "Tell me about a time you lost or broke your phone.", "어려움", "문제해결"),
+      q("휴대폰/SNS", "How do people communicate differently because of social media?", "어려움", "비교"),
+      q("날씨/계절", "What is the weather like where you live?", "쉬움", "묘사"),
+      q("날씨/계절", "What is your favorite season and why?", "쉬움", "묘사"),
+      q("날씨/계절", "Tell me about a day when the weather changed your plans.", "보통", "과거경험"),
+      q("날씨/계절", "How do people's activities change depending on the season?", "어려움", "비교"),
+      q("명절/전통", "Tell me about a traditional holiday in your country.", "보통", "묘사"),
+      q("명절/전통", "What do you usually do during holidays?", "쉬움", "습관"),
+      q("명절/전통", "Describe a memorable holiday with your family.", "보통", "과거경험"),
+      q("명절/전통", "How are holidays today different from the past?", "어려움", "비교"),
+      q("은행/병원/공공장소", "Tell me about a bank, hospital, or public office you often visit.", "보통", "묘사"),
+      q("은행/병원/공공장소", "Describe what you usually do when you visit a hospital or bank.", "보통", "습관"),
+      q("은행/병원/공공장소", "Tell me about a problem you had at a public place.", "어려움", "문제해결"),
+      q("은행/병원/공공장소", "Call a clinic and ask about available times, location, and fees.", "어려움", "롤플레이"),
+      q("집안일/요리", "What housework do you usually do?", "쉬움", "습관"),
+      q("집안일/요리", "Tell me about a dish you can cook.", "쉬움", "묘사"),
+      q("집안일/요리", "Describe a time you cooked for someone.", "보통", "과거경험"),
+      q("집안일/요리", "What do you do when something goes wrong while cooking?", "어려움", "문제해결"),
+      q("반려동물/동식물", "Tell me about a pet or animal you like.", "쉬움", "묘사"),
+      q("반려동물/동식물", "What do people usually do to take care of pets?", "보통", "습관"),
+      q("반려동물/동식물", "Describe a memorable experience with an animal.", "보통", "과거경험"),
+      q("반려동물/동식물", "How has people's attitude toward pets changed?", "어려움", "비교"),
+      q("재활용/환경", "What do you do to protect the environment?", "보통", "습관"),
+      q("재활용/환경", "Tell me about recycling in your neighborhood.", "보통", "묘사"),
+      q("재활용/환경", "Describe an environmental problem you have noticed.", "어려움", "문제해결"),
+      q("재활용/환경", "How have environmental habits changed in your country?", "어려움", "비교"),
+      q("돌발 주제", "Tell me about a memorable piece of news you heard recently.", "어려움", "돌발"),
+      q("돌발 주제", "Describe a recent change in your city or country.", "어려움", "돌발"),
+      q("돌발 주제", "What do people do when prices suddenly go up?", "어려움", "돌발"),
+      q("돌발 주제", "Talk about a machine or service that people use often these days.", "어려움", "돌발"),
+      q("롤플레이", "You want to buy a new phone. Call the store and ask three or four questions.", "어려움", "롤플레이"),
+      q("롤플레이", "You missed an appointment. Call your friend, explain the situation, and suggest a new time.", "어려움", "롤플레이"),
+      q("롤플레이", "You reserved a restaurant, but your plans changed. Call and change the reservation.", "어려움", "롤플레이"),
+      q("롤플레이", "You received the wrong item. Call customer service and explain the problem.", "어려움", "롤플레이")
+    ];
+
+    let state = loadState();
+    let topics = state.topics;
+    let items = state.items;
+    let selectedTopic = ALL_TOPIC;
+    let selectedId = items[0]?.id || null;
+    let selectedLevel = "보통";
+
+    const el = {
+      topicList: document.getElementById("topicList"),
+      topicNameInput: document.getElementById("topicNameInput"),
+      addTopicBtn: document.getElementById("addTopicBtn"),
+      stats: document.getElementById("stats"),
+      cards: document.getElementById("cards"),
+      search: document.getElementById("searchInput"),
+      statusFilter: document.getElementById("statusFilter"),
+      newBtn: document.getElementById("newBtn"),
+      practiceBtn: document.getElementById("practiceBtn"),
+      editorTitle: document.getElementById("editorTitle"),
+      question: document.getElementById("questionInput"),
+      topic: document.getElementById("topicInput"),
+      status: document.getElementById("statusInput"),
+      answerKo: document.getElementById("answerKoInput"),
+      answerEn: document.getElementById("answerEnInput"),
+      levelChips: document.getElementById("levelChips"),
+      saveBtn: document.getElementById("saveBtn"),
+      deleteBtn: document.getElementById("deleteBtn"),
+      exportBtn: document.getElementById("exportBtn"),
+      importBtn: document.getElementById("importBtn"),
+      importFile: document.getElementById("importFile"),
+      resetBtn: document.getElementById("resetBtn")
+    };
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          return normalizeState(parsed);
+        } catch {}
+      }
+      const old = localStorage.getItem(OLD_STORAGE_KEY);
+      if (old) {
+        try {
+          const parsed = JSON.parse(old);
+          if (Array.isArray(parsed)) {
+            const migrated = parsed.map((item) => ({
+              ...item,
+              answerKo: item.answerKo || "",
+              answerEn: item.answerEn || item.answer || "",
+              type: item.type || "기존"
+            }));
+            const mergedTopics = [...new Set([...defaultTopicNames, ...migrated.map((item) => item.topic).filter(Boolean)])];
+            return normalizeState({ topics: mergedTopics, items: migrated });
+          }
+        } catch {}
+      }
+      return normalizeState({ topics: defaultTopicNames, items: sampleItems });
+    }
+
+    function normalizeState(data) {
+      const topicNames = Array.isArray(data?.topics) ? data.topics : defaultTopicNames;
+      const normalizedTopics = [...new Set(topicNames.map((topic) => String(topic).trim()).filter(Boolean))];
+      const validTopics = [...new Set([...defaultTopicNames, ...(normalizedTopics.length ? normalizedTopics : defaultTopicNames)])];
+      const rawItems = Array.isArray(data?.items) ? data.items : sampleItems;
+      const normalizedItems = rawItems.map((item) => ({
+        id: item.id || crypto.randomUUID(),
+        topic: validTopics.includes(item.topic) ? item.topic : validTopics[0],
+        question: String(item.question || ""),
+        status: ["need", "draft", "ready"].includes(item.status) ? item.status : "need",
+        level: levels.includes(item.level) ? item.level : "보통",
+        type: String(item.type || "묘사"),
+        answerKo: String(item.answerKo || ""),
+        answerEn: String(item.answerEn || item.answer || "")
+      })).filter((item) => item.question.trim());
+      const existingQuestions = new Set(normalizedItems.map((item) => item.question.toLowerCase()));
+      const missingBankItems = sampleItems
+        .filter((item) => !existingQuestions.has(item.question.toLowerCase()))
+        .map((item) => ({ ...item, id: crypto.randomUUID() }));
+      return { topics: validTopics, items: [...normalizedItems, ...missingBankItems] };
+    }
+
+    function persist() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ topics, items }));
+    }
+
+    function filteredItems() {
+      const query = el.search.value.trim().toLowerCase();
+      const status = el.statusFilter.value;
+      return items.filter((item) => {
+        const matchesTopic = selectedTopic === ALL_TOPIC || item.topic === selectedTopic;
+        const matchesStatus = status === "all" || item.status === status;
+        const haystack = `${item.question} ${item.answerKo} ${item.answerEn} ${item.topic} ${item.type}`.toLowerCase();
+        return matchesTopic && matchesStatus && haystack.includes(query);
+      });
+    }
+
+    function renderTopics() {
+      el.topicList.innerHTML = "";
+      const allRow = document.createElement("div");
+      allRow.className = "topic-row";
+      allRow.innerHTML = `
+        <button class="topic-btn ${selectedTopic === ALL_TOPIC ? "active" : ""}" type="button">
+          <span class="topic-name">${ALL_TOPIC}</span><span class="pill">${items.length}</span>
+        </button>
+      `;
+      allRow.querySelector("button").addEventListener("click", () => selectTopic(ALL_TOPIC));
+      el.topicList.appendChild(allRow);
+
+      topics.forEach((topic) => {
+        const count = items.filter((item) => item.topic === topic).length;
+        const row = document.createElement("div");
+        row.className = "topic-row";
+        row.innerHTML = `
+          <button class="topic-btn ${topic === selectedTopic ? "active" : ""}" type="button">
+            <span class="topic-name">${escapeHtml(topic)}</span><span class="pill">${count}</span>
+          </button>
+          <button class="icon-btn" type="button" title="주제 이름 변경">✎</button>
+          <button class="icon-btn" type="button" title="주제 삭제">×</button>
+        `;
+        const buttons = row.querySelectorAll("button");
+        buttons[0].addEventListener("click", () => selectTopic(topic));
+        buttons[1].addEventListener("click", () => renameTopic(topic));
+        buttons[2].addEventListener("click", () => deleteTopic(topic));
+        el.topicList.appendChild(row);
+      });
+    }
+
+    function selectTopic(topic) {
+      selectedTopic = topic;
+      selectedId = filteredItems()[0]?.id || null;
+      render();
+    }
+
+    function addTopic() {
+      const name = el.topicNameInput.value.trim();
+      if (!name) {
+        el.topicNameInput.focus();
+        return;
+      }
+      if (name === ALL_TOPIC || topics.includes(name)) {
+        alert("이미 있는 주제입니다.");
+        return;
+      }
+      topics.push(name);
+      selectedTopic = name;
+      selectedId = null;
+      el.topicNameInput.value = "";
+      persist();
+      render();
+      createNew();
+    }
+
+    function renameTopic(oldName) {
+      const nextName = prompt("새 주제 이름을 입력하세요.", oldName)?.trim();
+      if (!nextName || nextName === oldName) return;
+      if (nextName === ALL_TOPIC || topics.includes(nextName)) {
+        alert("이미 있는 주제입니다.");
+        return;
+      }
+      topics = topics.map((topic) => topic === oldName ? nextName : topic);
+      items = items.map((item) => item.topic === oldName ? { ...item, topic: nextName } : item);
+      if (selectedTopic === oldName) selectedTopic = nextName;
+      persist();
+      render();
+    }
+
+    function deleteTopic(topic) {
+      const count = items.filter((item) => item.topic === topic).length;
+      const message = count
+        ? `"${topic}" 주제와 포함된 문제 ${count}개를 함께 삭제할까요?`
+        : `"${topic}" 주제를 삭제할까요?`;
+      if (!confirm(message)) return;
+      topics = topics.filter((entry) => entry !== topic);
+      items = items.filter((item) => item.topic !== topic);
+      if (!topics.length) topics = ["새 주제"];
+      if (selectedTopic === topic) selectedTopic = ALL_TOPIC;
+      selectedId = filteredItems()[0]?.id || null;
+      persist();
+      render();
+    }
+
+    function renderStats() {
+      const ready = items.filter((item) => item.status === "ready").length;
+      const draft = items.filter((item) => item.status === "draft").length;
+      const need = items.filter((item) => item.status === "need").length;
+      const progress = items.length ? Math.round((ready / items.length) * 100) : 0;
+      const stats = [
+        ["총 문제", items.length],
+        ["주제", topics.length],
+        ["초안/작성필요", `${draft}/${need}`],
+        ["진행률", `${progress}%`]
+      ];
+      el.stats.innerHTML = stats.map(([label, value]) => `<div class="stat"><b>${value}</b><span>${label}</span></div>`).join("");
+      el.deleteBtn.disabled = !selectedId;
+      el.deleteBtn.style.opacity = selectedId ? "1" : ".45";
+    }
+
+    function renderCards() {
+      const visible = filteredItems();
+      if (!visible.some((item) => item.id === selectedId)) {
+        selectedId = visible[0]?.id || null;
+      }
+      if (!visible.length) {
+        el.cards.innerHTML = `<div class="empty">조건에 맞는 문제가 없습니다.<br>새 문제를 추가하거나 필터를 바꿔보세요.</div>`;
+        return;
+      }
+      el.cards.innerHTML = "";
+      visible.forEach((item) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `q-card ${item.id === selectedId ? "active" : ""}`;
+        const preview = item.answerEn || item.answerKo || "";
+        button.innerHTML = `
+          <strong>${escapeHtml(item.question)}</strong>
+          ${preview ? `<p class="preview">${escapeHtml(preview.slice(0, 110))}${preview.length > 110 ? "..." : ""}</p>` : ""}
+          <div class="meta">
+            <span class="tag">${escapeHtml(item.topic)}</span>
+            <span class="tag">${escapeHtml(item.type)}</span>
+            <span class="tag ${item.status}">${statusLabel[item.status]}</span>
+            <span class="tag">${escapeHtml(item.level)}</span>
+          </div>
+        `;
+        button.addEventListener("click", () => {
+          selectedId = item.id;
+          render();
+        });
+        el.cards.appendChild(button);
+      });
+    }
+
+    function renderEditor() {
+      el.topic.innerHTML = topics.map((topic) => `<option value="${escapeHtml(topic)}">${escapeHtml(topic)}</option>`).join("");
+      const item = items.find((entry) => entry.id === selectedId);
+      if (!item) {
+        el.editorTitle.textContent = "새 문제 만들기";
+        el.topic.value = selectedTopic === ALL_TOPIC ? topics[0] : selectedTopic;
+        el.question.value = "";
+        el.status.value = "need";
+        el.answerKo.value = "";
+        el.answerEn.value = "";
+        selectedLevel = "보통";
+      } else {
+        el.editorTitle.textContent = "답변 편집";
+        el.topic.value = item.topic;
+        el.question.value = item.question;
+        el.status.value = item.status;
+        el.answerKo.value = item.answerKo;
+        el.answerEn.value = item.answerEn;
+        selectedLevel = item.level || "보통";
+      }
+      renderLevelChips();
+    }
+
+    function renderLevelChips() {
+      el.levelChips.innerHTML = "";
+      levels.forEach((level) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `chip ${level === selectedLevel ? "active" : ""}`;
+        button.textContent = level;
+        button.addEventListener("click", () => {
+          selectedLevel = level;
+          renderLevelChips();
+        });
+        el.levelChips.appendChild(button);
+      });
+    }
+
+    function saveCurrent() {
+      const question = el.question.value.trim();
+      if (!question) {
+        el.question.focus();
+        return;
+      }
+      const payload = {
+        topic: el.topic.value,
+        question,
+        status: el.status.value,
+        level: selectedLevel,
+        type: inferType(question),
+        answerKo: el.answerKo.value.trim(),
+        answerEn: el.answerEn.value.trim()
+      };
+      const index = items.findIndex((item) => item.id === selectedId);
+      if (index >= 0) {
+        items[index] = { ...items[index], ...payload };
+      } else {
+        const newItem = { id: crypto.randomUUID(), ...payload };
+        items.unshift(newItem);
+        selectedId = newItem.id;
+      }
+      selectedTopic = payload.topic;
+      persist();
+      render();
+    }
+
+    function inferType(question) {
+      const text = question.toLowerCase();
+      if (text.includes("call") || text.includes("ask") || text.includes("explain the situation")) return "롤플레이";
+      if (text.includes("problem") || text.includes("wrong") || text.includes("solve")) return "문제해결";
+      if (text.includes("different") || text.includes("compare") || text.includes("changed")) return "비교";
+      if (text.includes("usually") || text.includes("typical") || text.includes("often")) return "습관";
+      if (text.includes("remember") || text.includes("recent") || text.includes("last")) return "과거경험";
+      return "묘사";
+    }
+
+    function createNew() {
+      selectedId = null;
+      selectedLevel = "보통";
+      renderEditor();
+      el.topic.focus();
+    }
+
+    function deleteCurrent() {
+      if (!selectedId) return;
+      const item = items.find((entry) => entry.id === selectedId);
+      if (!item || !confirm(`"${item.question}" 문제를 삭제할까요?`)) return;
+      items = items.filter((entry) => entry.id !== selectedId);
+      selectedId = filteredItems()[0]?.id || null;
+      persist();
+      render();
+    }
+
+    function practiceRandom() {
+      const visible = filteredItems();
+      if (!visible.length) return;
+      selectedId = visible[Math.floor(Math.random() * visible.length)].id;
+      render();
+    }
+
+    function exportData() {
+      const blob = new Blob([JSON.stringify({ topics, items }, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "opik-answer-board.json";
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importData(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const imported = normalizeState(JSON.parse(reader.result));
+          topics = imported.topics;
+          items = imported.items;
+          selectedTopic = ALL_TOPIC;
+          selectedId = items[0]?.id || null;
+          persist();
+          render();
+        } catch {
+          alert("가져올 수 없는 파일입니다.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetSample() {
+      if (!confirm("현재 데이터를 오픽 기본 세트로 바꿀까요?")) return;
+      topics = [...defaultTopicNames];
+      items = sampleItems.map((item) => ({ ...item, id: crypto.randomUUID() }));
+      selectedTopic = ALL_TOPIC;
+      selectedId = items[0]?.id || null;
+      persist();
+      render();
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+      }[char]));
+    }
+
+    function render() {
+      renderTopics();
+      renderStats();
+      renderCards();
+      renderEditor();
+    }
+
+    el.search.addEventListener("input", render);
+    el.statusFilter.addEventListener("change", render);
+    el.newBtn.addEventListener("click", createNew);
+    el.practiceBtn.addEventListener("click", practiceRandom);
+    el.saveBtn.addEventListener("click", saveCurrent);
+    el.deleteBtn.addEventListener("click", deleteCurrent);
+    el.addTopicBtn.addEventListener("click", addTopic);
+    el.topicNameInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") addTopic();
+    });
+    el.exportBtn.addEventListener("click", exportData);
+    el.importBtn.addEventListener("click", () => el.importFile.click());
+    el.importFile.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file) importData(file);
+      event.target.value = "";
+    });
+    el.resetBtn.addEventListener("click", resetSample);
+
+    persist();
+    render();
+  </script>
+</body>
+</html>

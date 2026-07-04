@@ -133,6 +133,37 @@
     }
     .side-input::placeholder { color: #aac0c4; }
     .side-actions { display: grid; gap: 8px; }
+    .sync-panel {
+      display: grid;
+      gap: 8px;
+    }
+    .sync-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .sync-help {
+      margin: 8px 0 0;
+      color: #aac0c4;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .sync-status {
+      min-height: 18px;
+      color: #dbe8ea;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .side-select {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      background: #253039;
+      color: #fff;
+      outline: 0;
+      padding: 0 10px;
+    }
     .ghost-btn {
       min-height: 40px;
       border: 1px solid rgba(255, 255, 255, .22);
@@ -142,6 +173,29 @@
     }
 
     main { min-width: 0; padding: 28px; }
+    .view-tabs {
+      display: inline-flex;
+      gap: 6px;
+      padding: 5px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #e9eef1;
+    }
+    .tab-btn {
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .tab-btn.active {
+      background: #fff;
+      color: var(--brand);
+      box-shadow: 0 3px 10px rgba(23, 32, 38, .08);
+    }
+    .view-panel.hidden { display: none; }
     .toolbar {
       display: grid;
       grid-template-columns: minmax(220px, 1fr) 170px auto;
@@ -218,6 +272,12 @@
       border-bottom: 1px solid var(--line);
     }
     .editor-top { padding: 0 0 16px; margin-bottom: 16px; }
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
     .list-head h2, .editor h2 { margin: 0; font-size: 17px; }
     .cards { max-height: calc(100vh - 258px); overflow: auto; }
     .q-card {
@@ -229,6 +289,22 @@
     }
     .q-card:hover, .q-card.active { background: #f2faf8; }
     .q-card strong { display: block; margin-bottom: 8px; line-height: 1.35; }
+    .question-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: start;
+    }
+    .speak-btn {
+      min-height: 32px;
+      padding: 0 9px;
+      border-radius: 8px;
+      background: #edf5f3;
+      color: #0b5951;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .speak-btn:hover { background: #d9ece8; }
     .preview {
       margin: 0 0 9px;
       color: var(--muted);
@@ -291,8 +367,160 @@
     .empty { padding: 28px 16px; color: var(--muted); text-align: center; line-height: 1.5; }
     .hidden-file { display: none; }
 
+    .survey-shell {
+      display: grid;
+      gap: 16px;
+    }
+    .survey-hero,
+    .survey-section,
+    .survey-summary {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .survey-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+    }
+    .survey-hero h2,
+    .survey-section h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .survey-hero p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .survey-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      background: var(--line);
+    }
+    .summary-cell {
+      padding: 14px;
+      background: #fff;
+    }
+    .summary-cell b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 22px;
+    }
+    .summary-cell span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .survey-section {
+      overflow: hidden;
+    }
+    .survey-section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfcfd;
+    }
+    .survey-section-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .survey-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      padding: 16px 18px 18px;
+    }
+    .survey-option {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      min-height: 46px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .survey-option input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: var(--brand);
+    }
+    .survey-option span {
+      line-height: 1.35;
+    }
+    .survey-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .survey-selected {
+      padding: 16px 18px 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .ai-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .ai-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .ai-panel h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+    .ai-panel p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .ai-grid {
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .ai-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+    .ai-status {
+      min-height: 20px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
     @media (max-width: 1100px) {
-      .workspace, .toolbar { grid-template-columns: 1fr; }
+      .workspace, .toolbar, .survey-hero, .ai-shell { grid-template-columns: 1fr; }
+      .survey-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .cards { max-height: none; }
     }
     @media (max-width: 920px) {
@@ -303,9 +531,10 @@
     }
     @media (max-width: 680px) {
       main { padding: 18px; }
-      .topic-list, .stats, .form-grid, .notes, .answer-tools { grid-template-columns: 1fr; }
+      .topic-list, .stats, .form-grid, .notes, .answer-tools, .survey-options, .survey-summary, .ai-grid { grid-template-columns: 1fr; }
       .question-field { grid-column: 1; }
       .editor-top, .list-head { align-items: stretch; flex-direction: column; }
+      .view-tabs { display: grid; grid-template-columns: 1fr; width: 100%; }
     }
   </style>
 </head>
@@ -338,68 +567,180 @@
           <input class="hidden-file" id="importFile" type="file" accept="application/json">
         </div>
       </section>
+
+      <section class="side-section">
+        <p class="side-title">GitHub Sync</p>
+        <div class="sync-panel">
+          <div class="sync-grid">
+            <input class="side-input" id="githubOwnerInput" type="text" placeholder="owner">
+            <input class="side-input" id="githubRepoInput" type="text" placeholder="repo">
+          </div>
+          <div class="sync-grid">
+            <input class="side-input" id="githubBranchInput" type="text" placeholder="main">
+            <input class="side-input" id="githubPathInput" type="text" placeholder="data/opik.json">
+          </div>
+          <input class="side-input" id="githubTokenInput" type="password" placeholder="GitHub token">
+          <button class="ghost-btn" id="githubSaveConfigBtn" type="button">설정 저장</button>
+          <button class="ghost-btn" id="githubPullBtn" type="button">GitHub에서 불러오기</button>
+          <button class="ghost-btn" id="githubPushBtn" type="button">GitHub에 저장</button>
+          <div class="sync-status" id="githubStatus"></div>
+          <p class="sync-help">토큰은 이 브라우저에만 저장됩니다. fine-grained token에 해당 저장소 Contents 읽기/쓰기 권한만 주세요.</p>
+        </div>
+      </section>
+
+      <section class="side-section">
+        <p class="side-title">OpenAI AI</p>
+        <div class="sync-panel">
+          <input class="side-input" id="openaiKeyInput" type="password" placeholder="OpenAI API key">
+          <input class="side-input" id="openaiTextModelInput" type="text" placeholder="gpt-4.1-mini">
+          <select class="side-select" id="openaiVoiceInput" aria-label="OpenAI voice">
+            <option value="alloy">alloy</option>
+            <option value="coral">coral</option>
+            <option value="echo">echo</option>
+            <option value="fable">fable</option>
+            <option value="nova">nova</option>
+            <option value="sage">sage</option>
+            <option value="shimmer">shimmer</option>
+            <option value="verse">verse</option>
+            <option value="marin">marin</option>
+            <option value="cedar">cedar</option>
+          </select>
+          <button class="ghost-btn" id="openaiSaveConfigBtn" type="button">OpenAI 설정 저장</button>
+          <div class="sync-status" id="openaiStatus"></div>
+          <p class="sync-help">자연 음성과 AI 답변 생성에 사용합니다. 키는 이 브라우저에만 저장됩니다.</p>
+        </div>
+      </section>
     </aside>
 
     <main>
-      <div class="toolbar">
-        <input class="search" id="searchInput" type="search" placeholder="질문, 한글 답변, 영어 답변, 주제 검색">
-        <select class="select" id="statusFilter" aria-label="상태 필터">
-          <option value="all">전체 상태</option>
-          <option value="need">작성 필요</option>
-          <option value="draft">초안</option>
-          <option value="ready">암기 가능</option>
-        </select>
-        <button class="primary-btn" id="newBtn" type="button">+ 새 문제</button>
+      <div class="view-tabs" role="tablist" aria-label="화면 선택">
+        <button class="tab-btn active" id="boardTabBtn" type="button" role="tab" aria-selected="true">답변 보드</button>
+        <button class="tab-btn" id="surveyTabBtn" type="button" role="tab" aria-selected="false">Survey 연습</button>
+        <button class="tab-btn" id="aiTabBtn" type="button" role="tab" aria-selected="false">AI 답변</button>
       </div>
 
-      <section class="stats" id="stats"></section>
-
-      <section class="workspace">
-        <div class="question-list">
-          <div class="list-head">
-            <h2>예상 문제</h2>
-            <button class="secondary-btn" id="practiceBtn" type="button">랜덤 연습</button>
-          </div>
-          <div class="cards" id="cards"></div>
+      <section class="view-panel" id="boardPanel">
+        <div class="toolbar">
+          <input class="search" id="searchInput" type="search" placeholder="질문, 한글 답변, 영어 답변, 주제 검색">
+          <select class="select" id="statusFilter" aria-label="상태 필터">
+            <option value="all">전체 상태</option>
+            <option value="need">작성 필요</option>
+            <option value="draft">초안</option>
+            <option value="ready">암기 가능</option>
+          </select>
+          <button class="primary-btn" id="newBtn" type="button">+ 새 문제</button>
         </div>
 
-        <div class="editor">
-          <div class="editor-top">
-            <h2 id="editorTitle">답변 편집</h2>
-            <button class="danger-btn" id="deleteBtn" type="button">문제 삭제</button>
+        <section class="stats" id="stats"></section>
+
+        <section class="workspace">
+          <div class="question-list">
+            <div class="list-head">
+              <h2>예상 문제</h2>
+              <button class="secondary-btn" id="practiceBtn" type="button">랜덤 연습</button>
+            </div>
+            <div class="cards" id="cards"></div>
           </div>
 
-          <div class="form-grid">
-            <label>주제
-              <select class="select" id="topicInput"></select>
+          <div class="editor">
+            <div class="editor-top">
+              <h2 id="editorTitle">답변 편집</h2>
+              <div class="editor-actions">
+                <button class="secondary-btn" id="speakQuestionBtn" type="button">질문 듣기</button>
+                <button class="danger-btn" id="deleteBtn" type="button">문제 삭제</button>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <label>주제
+                <select class="select" id="topicInput"></select>
+              </label>
+              <label class="question-field">예상 질문
+                <input class="input" id="questionInput" type="text">
+              </label>
+              <label>상태
+                <select class="select" id="statusInput">
+                  <option value="need">작성 필요</option>
+                  <option value="draft">초안</option>
+                  <option value="ready">암기 가능</option>
+                </select>
+              </label>
+              <label class="wide">한글 답변
+                <textarea class="textarea ko" id="answerKoInput" placeholder="말하고 싶은 내용을 한국어로 먼저 정리하세요."></textarea>
+              </label>
+              <label class="wide">영어 답변
+                <textarea class="textarea en" id="answerEnInput" placeholder="한국어 답변을 자연스러운 영어 스피킹 문장으로 옮겨 적으세요."></textarea>
+              </label>
+            </div>
+
+            <div class="answer-tools">
+              <div class="chips" id="levelChips" aria-label="난이도"></div>
+              <button class="primary-btn" id="saveBtn" type="button">저장</button>
+            </div>
+
+            <div class="notes">
+              <div class="note"><b>구성</b><br>묘사, 습관, 과거경험, 비교, 문제해결 중 어떤 패턴인지 먼저 정하세요.</div>
+              <div class="note"><b>한글 답변</b><br>경험의 순서와 감정을 한국어로 잡으면 영어 답변이 훨씬 자연스러워집니다.</div>
+              <div class="note"><b>영어 답변</b><br>문장을 통째로 외우기보다 장소, 행동, 감정 키워드를 고정하세요.</div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="view-panel hidden" id="surveyPanel">
+        <div class="survey-shell">
+          <div class="survey-hero">
+            <div>
+              <h2>Background Survey 연습</h2>
+              <p>실제 시험 전 배경설문처럼 나에게 해당하는 항목을 선택해보세요. 선택한 항목과 가까운 예상 질문만 답변 보드에서 빠르게 볼 수 있습니다.</p>
+            </div>
+            <div class="survey-actions">
+              <button class="secondary-btn" id="applySurveyBtn" type="button">선택 주제로 문제 보기</button>
+              <button class="danger-btn" id="clearSurveyBtn" type="button">선택 초기화</button>
+            </div>
+          </div>
+          <div class="survey-summary" id="surveySummary"></div>
+          <div id="surveySections"></div>
+        </div>
+      </section>
+
+      <section class="view-panel hidden" id="aiPanel">
+        <div class="ai-shell">
+          <div class="ai-panel">
+            <h2>한글 메모로 영어 답변 만들기</h2>
+            <p>현재 선택한 질문과 한글 답변 메모를 바탕으로, 오픽 답변처럼 자연스러운 영어 스피킹 문장으로 바꿉니다.</p>
+            <div class="ai-grid">
+              <label>현재 질문
+                <input class="input" id="aiQuestionInput" type="text">
+              </label>
+              <label>목표 길이
+                <select class="select" id="aiLengthInput">
+                  <option value="short">짧게 40초</option>
+                  <option value="medium" selected>보통 60초</option>
+                  <option value="long">길게 90초</option>
+                </select>
+              </label>
+            </div>
+            <label>한글 키워드/메모
+              <textarea class="textarea ko" id="aiNotesInput" placeholder="예: 집 근처 공원, 퇴근 후 산책, 조용함, 스트레스 풀림, 주말에는 커피"></textarea>
             </label>
-            <label class="question-field">예상 질문
-              <input class="input" id="questionInput" type="text">
-            </label>
-            <label>상태
-              <select class="select" id="statusInput">
-                <option value="need">작성 필요</option>
-                <option value="draft">초안</option>
-                <option value="ready">암기 가능</option>
-              </select>
-            </label>
-            <label class="wide">한글 답변
-              <textarea class="textarea ko" id="answerKoInput" placeholder="말하고 싶은 내용을 한국어로 먼저 정리하세요."></textarea>
-            </label>
-            <label class="wide">영어 답변
-              <textarea class="textarea en" id="answerEnInput" placeholder="한국어 답변을 자연스러운 영어 스피킹 문장으로 옮겨 적으세요."></textarea>
-            </label>
+            <div class="ai-actions">
+              <button class="secondary-btn" id="aiLoadCurrentBtn" type="button">현재 답변 불러오기</button>
+              <button class="primary-btn" id="aiGenerateBtn" type="button">영어 답변 생성</button>
+            </div>
+            <div class="ai-status" id="aiStatus"></div>
           </div>
 
-          <div class="answer-tools">
-            <div class="chips" id="levelChips" aria-label="난이도"></div>
-            <button class="primary-btn" id="saveBtn" type="button">저장</button>
-          </div>
-
-          <div class="notes">
-            <div class="note"><b>구성</b><br>묘사, 습관, 과거경험, 비교, 문제해결 중 어떤 패턴인지 먼저 정하세요.</div>
-            <div class="note"><b>한글 답변</b><br>경험의 순서와 감정을 한국어로 잡으면 영어 답변이 훨씬 자연스러워집니다.</div>
-            <div class="note"><b>영어 답변</b><br>문장을 통째로 외우기보다 장소, 행동, 감정 키워드를 고정하세요.</div>
+          <div class="ai-panel">
+            <h2>생성된 영어 답변</h2>
+            <p>마음에 들면 현재 문제의 영어 답변 칸으로 적용하고 저장하세요.</p>
+            <label>AI 영어 답변
+              <textarea class="textarea en" id="aiResultInput" placeholder="여기에 생성 결과가 표시됩니다."></textarea>
+            </label>
+            <div class="ai-actions">
+              <button class="secondary-btn" id="aiSpeakResultBtn" type="button">생성 답변 듣기</button>
+              <button class="primary-btn" id="aiApplyResultBtn" type="button">영어 답변에 적용</button>
+            </div>
           </div>
         </div>
       </section>
@@ -409,9 +750,101 @@
   <script>
     const STORAGE_KEY = "opik-answer-board-v2";
     const OLD_STORAGE_KEY = "opik-answer-board-v1";
+    const GITHUB_CONFIG_KEY = "opik-github-sync-config-v1";
+    const SURVEY_SELECTION_KEY = "opik-survey-selection-v1";
+    const OPENAI_CONFIG_KEY = "opik-openai-config-v1";
     const ALL_TOPIC = "전체";
     const statusLabel = { need: "작성 필요", draft: "초안", ready: "암기 가능" };
     const levels = ["쉬움", "보통", "어려움"];
+    const surveySections = [
+      {
+        id: "profile",
+        title: "1. 현재 신분",
+        help: "시험에서는 직업, 학생 여부, 구직 여부처럼 기본 배경을 먼저 고릅니다.",
+        min: 1,
+        items: [
+          ["employee", "직장인", "직장/학교"],
+          ["student", "학생", "직장/학교"],
+          ["job-seeker", "취업 준비 중", "자기소개"],
+          ["homemaker", "주부/가사 중심", "집안일/요리"],
+          ["self-employed", "프리랜서/자영업", "직장/학교"],
+          ["none", "해당 없음", "자기소개"]
+        ]
+      },
+      {
+        id: "home",
+        title: "2. 거주 형태",
+        help: "사는 곳, 동네, 집에서 하는 일은 오픽에서 자주 확장 질문으로 이어집니다.",
+        min: 1,
+        items: [
+          ["alone", "혼자 거주", "집/동네"],
+          ["family", "가족과 거주", "가족/친구"],
+          ["roommate", "룸메이트와 거주", "집/동네"],
+          ["apartment", "아파트", "집/동네"],
+          ["house", "단독주택/빌라", "집/동네"],
+          ["dorm", "기숙사", "직장/학교"]
+        ]
+      },
+      {
+        id: "free-time",
+        title: "3. 여가 활동",
+        help: "평소 즐기는 활동을 고르면 묘사, 습관, 과거경험 질문으로 연결됩니다.",
+        min: 4,
+        items: [
+          ["movie", "영화 보기", "여가-영화/공연"],
+          ["concert", "공연/콘서트 보기", "여가-영화/공연"],
+          ["music", "음악 감상", "여가-음악"],
+          ["reading", "독서", "여가-독서"],
+          ["cafe", "카페 가기", "카페/식당"],
+          ["restaurant", "맛집/외식", "음식/외식"],
+          ["shopping", "쇼핑", "쇼핑"],
+          ["sns", "SNS/영상 보기", "휴대폰/SNS"],
+          ["internet", "인터넷 검색", "기술/인터넷"]
+        ]
+      },
+      {
+        id: "sports",
+        title: "4. 운동과 건강",
+        help: "운동을 선택하면 루틴, 시작 계기, 건강 관리 질문이 나올 수 있습니다.",
+        min: 1,
+        items: [
+          ["walking", "걷기", "운동/건강"],
+          ["running", "러닝", "운동/건강"],
+          ["gym", "헬스/웨이트", "운동/건강"],
+          ["yoga", "요가/필라테스", "운동/건강"],
+          ["cycling", "자전거", "운동/건강"],
+          ["no-sports", "운동을 거의 안 함", "운동/건강"]
+        ]
+      },
+      {
+        id: "travel",
+        title: "5. 여행과 이동",
+        help: "국내/해외 여행, 호텔, 교통은 롤플레이와 문제해결 질문으로 자주 이어집니다.",
+        min: 2,
+        items: [
+          ["domestic", "국내 여행", "여행-국내"],
+          ["overseas", "해외 여행", "여행-해외"],
+          ["vacation", "휴가 보내기", "휴가/호텔"],
+          ["hotel", "호텔/숙소 이용", "휴가/호텔"],
+          ["public-transport", "대중교통 이용", "교통"],
+          ["driving", "운전/차량 이동", "교통"]
+        ]
+      },
+      {
+        id: "unexpected",
+        title: "6. 돌발/사회 주제",
+        help: "서베이와 무관하게 나올 수 있는 날씨, 환경, 공공장소, 기술 변화 주제입니다.",
+        min: 2,
+        items: [
+          ["weather", "날씨/계절", "날씨/계절"],
+          ["holiday", "명절/전통", "명절/전통"],
+          ["public-place", "은행/병원/공공장소", "은행/병원/공공장소"],
+          ["environment", "재활용/환경", "재활용/환경"],
+          ["tech", "기술 변화", "기술/인터넷"],
+          ["role-play", "롤플레이 대비", "롤플레이"]
+        ]
+      }
+    ];
 
     const defaultTopicNames = [
       "자기소개", "직장/학교", "집/동네", "가족/친구", "여가-영화/공연", "여가-음악", "여가-독서",
@@ -533,8 +966,16 @@
     let selectedTopic = ALL_TOPIC;
     let selectedId = items[0]?.id || null;
     let selectedLevel = "보통";
+    let activeView = "board";
+    let surveySelections = loadSurveySelections();
 
     const el = {
+      boardTabBtn: document.getElementById("boardTabBtn"),
+      surveyTabBtn: document.getElementById("surveyTabBtn"),
+      aiTabBtn: document.getElementById("aiTabBtn"),
+      boardPanel: document.getElementById("boardPanel"),
+      surveyPanel: document.getElementById("surveyPanel"),
+      aiPanel: document.getElementById("aiPanel"),
       topicList: document.getElementById("topicList"),
       topicNameInput: document.getElementById("topicNameInput"),
       addTopicBtn: document.getElementById("addTopicBtn"),
@@ -552,12 +993,43 @@
       answerEn: document.getElementById("answerEnInput"),
       levelChips: document.getElementById("levelChips"),
       saveBtn: document.getElementById("saveBtn"),
+      speakQuestionBtn: document.getElementById("speakQuestionBtn"),
       deleteBtn: document.getElementById("deleteBtn"),
+      surveySummary: document.getElementById("surveySummary"),
+      surveySections: document.getElementById("surveySections"),
+      applySurveyBtn: document.getElementById("applySurveyBtn"),
+      clearSurveyBtn: document.getElementById("clearSurveyBtn"),
       exportBtn: document.getElementById("exportBtn"),
       importBtn: document.getElementById("importBtn"),
       importFile: document.getElementById("importFile"),
-      resetBtn: document.getElementById("resetBtn")
+      resetBtn: document.getElementById("resetBtn"),
+      githubOwner: document.getElementById("githubOwnerInput"),
+      githubRepo: document.getElementById("githubRepoInput"),
+      githubBranch: document.getElementById("githubBranchInput"),
+      githubPath: document.getElementById("githubPathInput"),
+      githubToken: document.getElementById("githubTokenInput"),
+      githubSaveConfigBtn: document.getElementById("githubSaveConfigBtn"),
+      githubPullBtn: document.getElementById("githubPullBtn"),
+      githubPushBtn: document.getElementById("githubPushBtn"),
+      githubStatus: document.getElementById("githubStatus"),
+      openaiKey: document.getElementById("openaiKeyInput"),
+      openaiTextModel: document.getElementById("openaiTextModelInput"),
+      openaiVoice: document.getElementById("openaiVoiceInput"),
+      openaiSaveConfigBtn: document.getElementById("openaiSaveConfigBtn"),
+      openaiStatus: document.getElementById("openaiStatus"),
+      aiQuestion: document.getElementById("aiQuestionInput"),
+      aiLength: document.getElementById("aiLengthInput"),
+      aiNotes: document.getElementById("aiNotesInput"),
+      aiResult: document.getElementById("aiResultInput"),
+      aiLoadCurrentBtn: document.getElementById("aiLoadCurrentBtn"),
+      aiGenerateBtn: document.getElementById("aiGenerateBtn"),
+      aiApplyResultBtn: document.getElementById("aiApplyResultBtn"),
+      aiSpeakResultBtn: document.getElementById("aiSpeakResultBtn"),
+      aiStatus: document.getElementById("aiStatus")
     };
+
+    loadGithubConfig();
+    loadOpenAIConfig();
 
     function loadState() {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -610,6 +1082,430 @@
 
     function persist() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ topics, items }));
+    }
+
+    function loadSurveySelections() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(SURVEY_SELECTION_KEY) || "{}");
+        return typeof saved === "object" && saved ? saved : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function persistSurveySelections() {
+      localStorage.setItem(SURVEY_SELECTION_KEY, JSON.stringify(surveySelections));
+    }
+
+    function switchView(view) {
+      activeView = view;
+      const isSurvey = view === "survey";
+      const isAI = view === "ai";
+      el.boardPanel.classList.toggle("hidden", isSurvey || isAI);
+      el.surveyPanel.classList.toggle("hidden", !isSurvey);
+      el.aiPanel.classList.toggle("hidden", !isAI);
+      el.boardTabBtn.classList.toggle("active", !isSurvey && !isAI);
+      el.surveyTabBtn.classList.toggle("active", isSurvey);
+      el.aiTabBtn.classList.toggle("active", isAI);
+      el.boardTabBtn.setAttribute("aria-selected", String(!isSurvey && !isAI));
+      el.surveyTabBtn.setAttribute("aria-selected", String(isSurvey));
+      el.aiTabBtn.setAttribute("aria-selected", String(isAI));
+      if (isSurvey) renderSurvey();
+      if (isAI) loadCurrentIntoAI(false);
+    }
+
+    function selectedSurveyItems() {
+      return surveySections.flatMap((section) => {
+        const picked = new Set(surveySelections[section.id] || []);
+        return section.items
+          .filter(([id]) => picked.has(id))
+          .map(([id, label, topic]) => ({ id, label, topic, section: section.title }));
+      });
+    }
+
+    function selectedSurveyTopics() {
+      return [...new Set(selectedSurveyItems().map((item) => item.topic).filter(Boolean))];
+    }
+
+    function renderSurvey() {
+      const selected = selectedSurveyItems();
+      const selectedTopics = selectedSurveyTopics();
+      const recommendedQuestions = items.filter((item) => selectedTopics.includes(item.topic)).length;
+      el.surveySummary.innerHTML = [
+        ["선택 항목", `${selected.length}`],
+        ["연결 주제", `${selectedTopics.length}`],
+        ["예상 문제", `${recommendedQuestions}`],
+        ["권장 선택", "12+"]
+      ].map(([label, value]) => `<div class="summary-cell"><b>${value}</b><span>${label}</span></div>`).join("");
+
+      el.surveySections.innerHTML = "";
+      surveySections.forEach((section) => {
+        const picked = new Set(surveySelections[section.id] || []);
+        const sectionEl = document.createElement("section");
+        sectionEl.className = "survey-section";
+        sectionEl.innerHTML = `
+          <div class="survey-section-head">
+            <div>
+              <h3>${escapeHtml(section.title)}</h3>
+              <p>${escapeHtml(section.help)}</p>
+            </div>
+            <span class="tag">권장 ${section.min}개 이상</span>
+          </div>
+          <div class="survey-options"></div>
+          <div class="survey-selected"></div>
+        `;
+        const optionsEl = sectionEl.querySelector(".survey-options");
+        const selectedEl = sectionEl.querySelector(".survey-selected");
+        section.items.forEach(([id, label, topic]) => {
+          const optionLabel = document.createElement("label");
+          optionLabel.className = "survey-option";
+          optionLabel.innerHTML = `
+            <input type="checkbox" ${picked.has(id) ? "checked" : ""}>
+            <span>${escapeHtml(label)}<br><small>${escapeHtml(topic)}</small></span>
+          `;
+          optionLabel.querySelector("input").addEventListener("change", (event) => {
+            const next = new Set(surveySelections[section.id] || []);
+            if (event.target.checked) next.add(id);
+            else next.delete(id);
+            surveySelections[section.id] = [...next];
+            persistSurveySelections();
+            renderSurvey();
+          });
+          optionsEl.appendChild(optionLabel);
+        });
+        const pickedLabels = section.items
+          .filter(([id]) => picked.has(id))
+          .map(([, label]) => label);
+        selectedEl.textContent = pickedLabels.length
+          ? `선택됨: ${pickedLabels.join(", ")}`
+          : "아직 선택된 항목이 없습니다.";
+        el.surveySections.appendChild(sectionEl);
+      });
+    }
+
+    function applySurveyToBoard() {
+      const surveyTopics = selectedSurveyTopics();
+      selectedTopic = surveyTopics[0] || ALL_TOPIC;
+      selectedId = filteredItems()[0]?.id || null;
+      switchView("board");
+      render();
+    }
+
+    function clearSurvey() {
+      surveySelections = {};
+      persistSurveySelections();
+      renderSurvey();
+    }
+
+    function loadOpenAIConfig() {
+      try {
+        const config = JSON.parse(localStorage.getItem(OPENAI_CONFIG_KEY) || "{}");
+        el.openaiKey.value = config.key || "";
+        el.openaiTextModel.value = config.textModel || "gpt-4.1-mini";
+        el.openaiVoice.value = config.voice || "alloy";
+      } catch {
+        el.openaiTextModel.value = "gpt-4.1-mini";
+        el.openaiVoice.value = "alloy";
+      }
+    }
+
+    function getOpenAIConfig() {
+      return {
+        key: el.openaiKey.value.trim(),
+        textModel: el.openaiTextModel.value.trim() || "gpt-4.1-mini",
+        voice: el.openaiVoice.value || "alloy"
+      };
+    }
+
+    function saveOpenAIConfig() {
+      const config = getOpenAIConfig();
+      localStorage.setItem(OPENAI_CONFIG_KEY, JSON.stringify(config));
+      el.openaiStatus.textContent = "OpenAI 설정을 저장했습니다.";
+    }
+
+    function requireOpenAIKey() {
+      const config = getOpenAIConfig();
+      if (!config.key) throw new Error("OpenAI API key를 입력하고 설정 저장을 눌러주세요.");
+      return config;
+    }
+
+    async function speakText(text) {
+      const phrase = String(text || "").trim();
+      if (!phrase) return;
+      const config = getOpenAIConfig();
+      if (config.key) {
+        try {
+          el.openaiStatus.textContent = "자연 음성을 생성하는 중...";
+          const response = await fetch("https://api.openai.com/v1/audio/speech", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${config.key}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model: "gpt-4o-mini-tts",
+              voice: config.voice,
+              input: phrase,
+              instructions: "Speak like a calm OPIc test interviewer. Use natural American English, clear pacing, and a friendly exam-room tone.",
+              response_format: "mp3"
+            })
+          });
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText || `음성 생성 실패: ${response.status}`);
+          }
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          const audio = new Audio(url);
+          audio.onended = () => URL.revokeObjectURL(url);
+          await audio.play();
+          el.openaiStatus.textContent = "자연 음성 재생 중입니다.";
+          return;
+        } catch (error) {
+          el.openaiStatus.textContent = `OpenAI 음성 실패: ${error.message}`;
+        }
+      }
+      if (!("speechSynthesis" in window)) {
+        alert("이 브라우저에서는 음성 재생을 지원하지 않습니다.");
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(phrase);
+      utterance.lang = "en-US";
+      utterance.rate = 0.88;
+      utterance.pitch = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakCurrentQuestion() {
+      const item = items.find((entry) => entry.id === selectedId);
+      speakText(item?.question || el.question.value);
+    }
+
+    function extractResponseText(data) {
+      if (data.output_text) return data.output_text.trim();
+      const chunks = [];
+      (data.output || []).forEach((outputItem) => {
+        (outputItem.content || []).forEach((contentItem) => {
+          if (contentItem.type === "output_text" && contentItem.text) chunks.push(contentItem.text);
+        });
+      });
+      return chunks.join("\n").trim();
+    }
+
+    function loadCurrentIntoAI(overwrite = true) {
+      const item = items.find((entry) => entry.id === selectedId);
+      if (!item) return;
+      el.aiQuestion.value = item.question || "";
+      if (overwrite || !el.aiNotes.value.trim()) el.aiNotes.value = item.answerKo || "";
+      if (overwrite || !el.aiResult.value.trim()) el.aiResult.value = item.answerEn || "";
+    }
+
+    async function generateAIAnswer() {
+      try {
+        const config = requireOpenAIKey();
+        saveOpenAIConfig();
+        const question = el.aiQuestion.value.trim() || el.question.value.trim();
+        const notes = el.aiNotes.value.trim() || el.answerKo.value.trim();
+        if (!question) throw new Error("질문을 입력하거나 답변 보드에서 문제를 선택하세요.");
+        if (!notes) throw new Error("한글 키워드/메모를 입력하세요.");
+        el.aiStatus.textContent = "AI가 영어 답변을 만드는 중...";
+        const lengthGuide = {
+          short: "about 6 to 8 spoken sentences, around 40 seconds",
+          medium: "about 9 to 12 spoken sentences, around 60 seconds",
+          long: "about 13 to 16 spoken sentences, around 90 seconds"
+        }[el.aiLength.value] || "about 9 to 12 spoken sentences, around 60 seconds";
+        const topic = el.topic.value || "";
+        const response = await fetch("https://api.openai.com/v1/responses", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${config.key}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model: config.textModel,
+            instructions: [
+              "You are an OPIc speaking coach for Korean learners.",
+              "Turn Korean keywords or rough Korean notes into a natural first-person English answer.",
+              "Use clear, conversational English suitable for an OPIc test.",
+              "Keep the answer easy to memorize, with natural connectors and no bullet points.",
+              "Do not mention that you are an AI. Return only the English answer."
+            ].join(" "),
+            input: [
+              `OPIc question: ${question}`,
+              `Topic: ${topic}`,
+              `Target length: ${lengthGuide}`,
+              `Korean notes: ${notes}`
+            ].join("\n")
+          })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data?.error?.message || `답변 생성 실패: ${response.status}`);
+        const text = extractResponseText(data);
+        if (!text) throw new Error("생성된 답변을 읽을 수 없습니다.");
+        el.aiResult.value = text;
+        el.aiStatus.textContent = "영어 답변 생성 완료.";
+      } catch (error) {
+        el.aiStatus.textContent = `생성 실패: ${error.message}`;
+      }
+    }
+
+    function applyAIResult() {
+      const result = el.aiResult.value.trim();
+      if (!result) {
+        el.aiStatus.textContent = "적용할 영어 답변이 없습니다.";
+        return;
+      }
+      el.answerEn.value = result;
+      saveCurrent();
+      el.aiStatus.textContent = "현재 문제의 영어 답변에 적용하고 저장했습니다.";
+    }
+
+    function getStateSnapshot() {
+      return {
+        version: 2,
+        updatedAt: new Date().toISOString(),
+        topics,
+        items,
+        surveySelections
+      };
+    }
+
+    function loadGithubConfig() {
+      try {
+        const config = JSON.parse(localStorage.getItem(GITHUB_CONFIG_KEY) || "{}");
+        el.githubOwner.value = config.owner || "";
+        el.githubRepo.value = config.repo || "";
+        el.githubBranch.value = config.branch || "main";
+        el.githubPath.value = config.path || "data/opik-answer-board.json";
+        el.githubToken.value = config.token || "";
+      } catch {
+        el.githubBranch.value = "main";
+        el.githubPath.value = "data/opik-answer-board.json";
+      }
+    }
+
+    function getGithubConfig() {
+      return {
+        owner: el.githubOwner.value.trim(),
+        repo: el.githubRepo.value.trim(),
+        branch: el.githubBranch.value.trim() || "main",
+        path: el.githubPath.value.trim() || "data/opik-answer-board.json",
+        token: el.githubToken.value.trim()
+      };
+    }
+
+    function saveGithubConfig() {
+      const config = getGithubConfig();
+      localStorage.setItem(GITHUB_CONFIG_KEY, JSON.stringify(config));
+      setGithubStatus("GitHub 설정을 저장했습니다.");
+    }
+
+    function setGithubStatus(message) {
+      el.githubStatus.textContent = message;
+    }
+
+    function validateGithubConfig(config) {
+      if (!config.owner || !config.repo || !config.path || !config.token) {
+        throw new Error("owner, repo, path, token을 모두 입력하세요.");
+      }
+    }
+
+    function encodeBase64Utf8(value) {
+      const bytes = new TextEncoder().encode(value);
+      let binary = "";
+      bytes.forEach((byte) => {
+        binary += String.fromCharCode(byte);
+      });
+      return btoa(binary);
+    }
+
+    function decodeBase64Utf8(value) {
+      const binary = atob(value.replace(/\n/g, ""));
+      const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+      return new TextDecoder().decode(bytes);
+    }
+
+    async function githubRequest(config, options = {}) {
+      const response = await fetch(options.url, {
+        method: options.method || "GET",
+        headers: {
+          "Accept": "application/vnd.github+json",
+          "Authorization": `Bearer ${config.token}`,
+          "X-GitHub-Api-Version": "2022-11-28",
+          ...(options.body ? { "Content-Type": "application/json" } : {})
+        },
+        body: options.body ? JSON.stringify(options.body) : undefined
+      });
+      const text = await response.text();
+      const data = text ? JSON.parse(text) : null;
+      if (!response.ok) {
+        const message = data?.message || `GitHub API 오류: ${response.status}`;
+        const error = new Error(message);
+        error.status = response.status;
+        throw error;
+      }
+      return data;
+    }
+
+    async function getGithubFile(config) {
+      const encodedPath = config.path.split("/").map(encodeURIComponent).join("/");
+      const url = `https://api.github.com/repos/${encodeURIComponent(config.owner)}/${encodeURIComponent(config.repo)}/contents/${encodedPath}?ref=${encodeURIComponent(config.branch)}`;
+      return githubRequest(config, { url });
+    }
+
+    async function pullFromGithub() {
+      const config = getGithubConfig();
+      try {
+        validateGithubConfig(config);
+        saveGithubConfig();
+        setGithubStatus("GitHub에서 불러오는 중...");
+        const file = await getGithubFile(config);
+        const parsedCloudState = JSON.parse(decodeBase64Utf8(file.content));
+        const cloudState = normalizeState(parsedCloudState);
+        topics = cloudState.topics;
+        items = cloudState.items;
+        surveySelections = parsedCloudState.surveySelections || {};
+        selectedTopic = ALL_TOPIC;
+        selectedId = items[0]?.id || null;
+        persist();
+        persistSurveySelections();
+        render();
+        setGithubStatus(`불러오기 완료: 문제 ${items.length}개`);
+      } catch (error) {
+        setGithubStatus(`불러오기 실패: ${error.message}`);
+      }
+    }
+
+    async function pushToGithub() {
+      const config = getGithubConfig();
+      try {
+        validateGithubConfig(config);
+        saveGithubConfig();
+        setGithubStatus("GitHub에 저장하는 중...");
+        let sha;
+        try {
+          const currentFile = await getGithubFile(config);
+          sha = currentFile.sha;
+        } catch (error) {
+          if (error.status !== 404) throw error;
+        }
+        const encodedPath = config.path.split("/").map(encodeURIComponent).join("/");
+        const url = `https://api.github.com/repos/${encodeURIComponent(config.owner)}/${encodeURIComponent(config.repo)}/contents/${encodedPath}`;
+        await githubRequest(config, {
+          url,
+          method: "PUT",
+          body: {
+            message: `Update OPIc answer data ${new Date().toISOString()}`,
+            content: encodeBase64Utf8(JSON.stringify(getStateSnapshot(), null, 2)),
+            branch: config.branch,
+            ...(sha ? { sha } : {})
+          }
+        });
+        setGithubStatus(`저장 완료: ${config.path}`);
+      } catch (error) {
+        setGithubStatus(`저장 실패: ${error.message}`);
+      }
     }
 
     function filteredItems() {
@@ -735,12 +1631,16 @@
       }
       el.cards.innerHTML = "";
       visible.forEach((item) => {
-        const button = document.createElement("button");
-        button.type = "button";
+        const button = document.createElement("div");
         button.className = `q-card ${item.id === selectedId ? "active" : ""}`;
+        button.tabIndex = 0;
+        button.setAttribute("role", "button");
         const preview = item.answerEn || item.answerKo || "";
         button.innerHTML = `
-          <strong>${escapeHtml(item.question)}</strong>
+          <div class="question-line">
+            <strong>${escapeHtml(item.question)}</strong>
+            <button class="speak-btn" type="button">듣기</button>
+          </div>
           ${preview ? `<p class="preview">${escapeHtml(preview.slice(0, 110))}${preview.length > 110 ? "..." : ""}</p>` : ""}
           <div class="meta">
             <span class="tag">${escapeHtml(item.topic)}</span>
@@ -752,6 +1652,17 @@
         button.addEventListener("click", () => {
           selectedId = item.id;
           render();
+        });
+        button.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            selectedId = item.id;
+            render();
+          }
+        });
+        button.querySelector(".speak-btn").addEventListener("click", (event) => {
+          event.stopPropagation();
+          speakText(item.question);
         });
         el.cards.appendChild(button);
       });
@@ -858,7 +1769,7 @@
     }
 
     function exportData() {
-      const blob = new Blob([JSON.stringify({ topics, items }, null, 2)], { type: "application/json" });
+      const blob = new Blob([JSON.stringify(getStateSnapshot(), null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -871,12 +1782,15 @@
       const reader = new FileReader();
       reader.onload = () => {
         try {
-          const imported = normalizeState(JSON.parse(reader.result));
+          const parsed = JSON.parse(reader.result);
+          const imported = normalizeState(parsed);
           topics = imported.topics;
           items = imported.items;
+          surveySelections = parsed.surveySelections || {};
           selectedTopic = ALL_TOPIC;
           selectedId = items[0]?.id || null;
           persist();
+          persistSurveySelections();
           render();
         } catch {
           alert("가져올 수 없는 파일입니다.");
@@ -906,14 +1820,22 @@
       renderStats();
       renderCards();
       renderEditor();
+      if (activeView === "survey") renderSurvey();
+      if (activeView === "ai") loadCurrentIntoAI(false);
     }
 
     el.search.addEventListener("input", render);
     el.statusFilter.addEventListener("change", render);
+    el.boardTabBtn.addEventListener("click", () => switchView("board"));
+    el.surveyTabBtn.addEventListener("click", () => switchView("survey"));
+    el.aiTabBtn.addEventListener("click", () => switchView("ai"));
     el.newBtn.addEventListener("click", createNew);
     el.practiceBtn.addEventListener("click", practiceRandom);
     el.saveBtn.addEventListener("click", saveCurrent);
+    el.speakQuestionBtn.addEventListener("click", speakCurrentQuestion);
     el.deleteBtn.addEventListener("click", deleteCurrent);
+    el.applySurveyBtn.addEventListener("click", applySurveyToBoard);
+    el.clearSurveyBtn.addEventListener("click", clearSurvey);
     el.addTopicBtn.addEventListener("click", addTopic);
     el.topicNameInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") addTopic();
@@ -926,6 +1848,14 @@
       event.target.value = "";
     });
     el.resetBtn.addEventListener("click", resetSample);
+    el.githubSaveConfigBtn.addEventListener("click", saveGithubConfig);
+    el.githubPullBtn.addEventListener("click", pullFromGithub);
+    el.githubPushBtn.addEventListener("click", pushToGithub);
+    el.openaiSaveConfigBtn.addEventListener("click", saveOpenAIConfig);
+    el.aiLoadCurrentBtn.addEventListener("click", () => loadCurrentIntoAI(true));
+    el.aiGenerateBtn.addEventListener("click", generateAIAnswer);
+    el.aiApplyResultBtn.addEventListener("click", applyAIResult);
+    el.aiSpeakResultBtn.addEventListener("click", () => speakText(el.aiResult.value));
 
     persist();
     render();

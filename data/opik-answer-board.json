@@ -1,0 +1,1065 @@
+{
+  "version": 2,
+  "updatedAt": "2026-07-04T02:59:05.653Z",
+  "topics": [
+    "자기소개",
+    "직장/학교",
+    "집/동네",
+    "가족/친구",
+    "여가-영화/공연",
+    "여가-음악",
+    "여가-독서",
+    "운동/건강",
+    "쇼핑",
+    "음식/외식",
+    "카페/식당",
+    "여행-국내",
+    "여행-해외",
+    "휴가/호텔",
+    "교통",
+    "기술/인터넷",
+    "휴대폰/SNS",
+    "날씨/계절",
+    "명절/전통",
+    "은행/병원/공공장소",
+    "집안일/요리",
+    "반려동물/동식물",
+    "재활용/환경",
+    "돌발 주제",
+    "롤플레이",
+    "여가",
+    "여행"
+  ],
+  "items": [
+    {
+      "id": "91ae1a50-6fb8-4de0-8daf-eb82ffcbedc9",
+      "topic": "자기소개",
+      "question": "Please introduce yourself.",
+      "status": "ready",
+      "level": "쉬움",
+      "type": "기존",
+      "answerKo": "",
+      "answerEn": "Hi, my name is Minji. I work as a marketing assistant in Seoul. I usually describe myself as calm but curious. After work, I like taking a walk near my apartment or watching short documentaries. These days, I am trying to improve my English because I want to speak more naturally with foreign clients."
+    },
+    {
+      "id": "33e384b8-3cb3-4eb4-bce3-ad1d8568c5b0",
+      "topic": "집/동네",
+      "question": "Tell me about your neighborhood.",
+      "status": "draft",
+      "level": "보통",
+      "type": "기존",
+      "answerKo": "",
+      "answerEn": "I live in a quiet neighborhood near a subway station. What I like most is that everything is close, such as cafes, small restaurants, and a park. On weekends, I often buy coffee and walk around the park. It is not a fancy area, but it feels comfortable and convenient."
+    },
+    {
+      "id": "ee696049-c447-44e3-9b38-308d22a98773",
+      "topic": "여가",
+      "question": "What do you usually do in your free time?",
+      "status": "draft",
+      "level": "쉬움",
+      "type": "기존",
+      "answerKo": "",
+      "answerEn": "In my free time, I usually watch movies at home. I especially like comedy movies because they help me relax after a busy day. Sometimes I invite a friend and we order food together. It is a simple hobby, but it gives me a nice break."
+    },
+    {
+      "id": "9140cde0-5bd3-4edc-9162-f9d6e825a684",
+      "topic": "여행",
+      "question": "Describe a memorable trip you took.",
+      "status": "need",
+      "level": "어려움",
+      "type": "기존",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "31ebbabe-71a5-47ce-b973-602d4570dcdf",
+      "topic": "롤플레이",
+      "question": "Call a hotel and ask three or four questions about the room.",
+      "status": "need",
+      "level": "어려움",
+      "type": "기존",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "a907705d-02c8-42b3-a4c0-568a8cce6449",
+      "topic": "자기소개",
+      "question": "Tell me about your personality and what kind of person you are.",
+      "status": "need",
+      "level": "보통",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "60677e97-6c47-49b7-a3cc-a6053f78725a",
+      "topic": "자기소개",
+      "question": "What do you usually do on weekdays after work or school?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "332eec32-038d-4e6d-bc26-d6d7d4561a6b",
+      "topic": "자기소개",
+      "question": "Tell me about a recent change in your life.",
+      "status": "need",
+      "level": "어려움",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "5038319f-3c01-406f-9cf1-2e5d660ebed1",
+      "topic": "직장/학교",
+      "question": "Tell me about your workplace or school.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "7c7761b2-9b92-4603-89b6-ecff3616d8fe",
+      "topic": "직장/학교",
+      "question": "What is your typical day at work or school like?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "3e4a8be3-b671-4c65-a7b4-10311ffbd04f",
+      "topic": "직장/학교",
+      "question": "Describe a memorable project, class, or assignment.",
+      "status": "need",
+      "level": "어려움",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "e0d30cb1-6787-40c2-9cfe-1e9071e0d1cd",
+      "topic": "직장/학교",
+      "question": "How has your work or school life changed compared to the past?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "f72f2a43-2549-4b06-8251-b496cfd74db0",
+      "topic": "집/동네",
+      "question": "Describe your home in detail.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "ba498412-53ff-4e19-b262-c22d466d8204",
+      "topic": "집/동네",
+      "question": "What do you usually do when you spend time at home?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "1e239d45-c9f2-4877-8a0c-d7e4c7b625dd",
+      "topic": "집/동네",
+      "question": "Tell me about a problem you had at home and how you solved it.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "004efb84-946b-4530-b1cd-4897451c82b8",
+      "topic": "가족/친구",
+      "question": "Tell me about one of your family members.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "d1a9ac10-a1c8-49a8-9e70-f72c5d75754e",
+      "topic": "가족/친구",
+      "question": "What do you usually do with your friends?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "4b9449ac-8048-4889-a967-555600371d7e",
+      "topic": "가족/친구",
+      "question": "Describe a memorable time you spent with your family or friends.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "5e7bbb35-be48-4a65-ba40-fb26feaa6f00",
+      "topic": "가족/친구",
+      "question": "How are your relationships with friends different now from when you were younger?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "cc3994f9-9adc-4c82-ad20-c342537a46ac",
+      "topic": "여가-영화/공연",
+      "question": "What kinds of movies or performances do you like?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "965871b6-cec1-46a0-b727-f3389f639e2e",
+      "topic": "여가-영화/공연",
+      "question": "Tell me about the last movie or performance you watched.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "1791de9b-13c4-452e-9381-d6cad900259b",
+      "topic": "여가-영화/공연",
+      "question": "How do you usually choose a movie or show?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "0ef399d4-2308-435e-b2bb-f53217fd1646",
+      "topic": "여가-영화/공연",
+      "question": "Compare watching a movie at home and watching it in a theater.",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "c0a8f7e3-f540-48ad-be66-a52d0ae4a0d7",
+      "topic": "여가-음악",
+      "question": "What kind of music do you enjoy listening to?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "697bfe91-ad1e-4921-bf8d-3762277dd008",
+      "topic": "여가-음악",
+      "question": "When and where do you usually listen to music?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "f00528d5-9041-44dd-8941-7d7d0093801f",
+      "topic": "여가-음악",
+      "question": "Tell me about a concert or music event you remember.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "12846aa5-daa9-43a7-bb9e-0d269f6bf595",
+      "topic": "여가-음악",
+      "question": "How has your taste in music changed over time?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "5d79594a-b319-4fcf-99c4-68d722563234",
+      "topic": "여가-독서",
+      "question": "What kinds of books or articles do you like reading?",
+      "status": "need",
+      "level": "보통",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "c3b06abd-968b-46c5-a8b0-811dee214a2b",
+      "topic": "여가-독서",
+      "question": "Tell me about a book or article that impressed you.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "552027f6-bdab-4e9c-a5b7-0929c88fba06",
+      "topic": "여가-독서",
+      "question": "Where and when do you usually read?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "fec8d724-8008-4e3d-8a75-5d7ed6e4d6b6",
+      "topic": "여가-독서",
+      "question": "Do people read differently now compared to the past?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "4697bc1c-c571-46c0-8f85-22430246fb47",
+      "topic": "운동/건강",
+      "question": "What kind of exercise do you like?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "04a8822e-679f-4d52-a7c0-de51822ff454",
+      "topic": "운동/건강",
+      "question": "Describe your regular exercise routine.",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "2c50fdfc-a7c9-45d5-83b3-3a6b890d5891",
+      "topic": "운동/건강",
+      "question": "Tell me about a time you started or stopped exercising.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "c9c162d5-ccff-4d31-831d-5e059b05a777",
+      "topic": "운동/건강",
+      "question": "What do you do when you feel tired or stressed?",
+      "status": "need",
+      "level": "보통",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "2b7c62ab-59cf-4159-8087-00ac934c3a39",
+      "topic": "쇼핑",
+      "question": "Where do you usually go shopping?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "f718917a-fee4-4aec-9c1f-d730ea22ac30",
+      "topic": "쇼핑",
+      "question": "What do you usually buy online or offline?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "5ec9a9de-967f-4e67-8fb3-d95cb580375e",
+      "topic": "쇼핑",
+      "question": "Tell me about a shopping experience that went wrong.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "4e408b99-8d88-42f2-8014-5d806746578d",
+      "topic": "쇼핑",
+      "question": "How is online shopping different from shopping in stores?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "755e884f-db6c-43a0-9422-3046b28d6b9f",
+      "topic": "음식/외식",
+      "question": "What kind of food do you like?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "852fea80-0389-477e-a39b-1c2b98d43d20",
+      "topic": "음식/외식",
+      "question": "Tell me about your favorite restaurant.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "c38bb542-1ac4-40c1-8edb-9c25d26c64c8",
+      "topic": "음식/외식",
+      "question": "Describe a memorable meal you had recently.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "b3b26a3a-1b13-41cf-90bf-6df6418330f6",
+      "topic": "음식/외식",
+      "question": "How have your eating habits changed?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "3a283d17-b7cc-4f99-a602-2bfa1eeb004f",
+      "topic": "카페/식당",
+      "question": "Tell me about a cafe you often visit.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "649ff1ce-9a5f-4a83-8a9c-a95a79e7ea75",
+      "topic": "카페/식당",
+      "question": "What do you usually order at cafes or restaurants?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "7dc776d8-f58e-4969-a7fc-9dfca73cdacf",
+      "topic": "카페/식당",
+      "question": "Describe a bad service experience at a cafe or restaurant.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "d1b6134f-22ed-45a5-af16-9fce7fecd6ad",
+      "topic": "카페/식당",
+      "question": "Call a restaurant and ask about the menu, seats, and opening hours.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "4090b9cc-c688-401a-9a18-ee1332e7603d",
+      "topic": "여행-국내",
+      "question": "Where do you like to travel in your country?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "c5e88b58-7052-4a95-81b8-ac759deb649a",
+      "topic": "여행-국내",
+      "question": "Describe a memorable domestic trip.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "e169b7e7-5f2c-4f7b-8381-3297620e7a9b",
+      "topic": "여행-국내",
+      "question": "What do you usually prepare before a trip?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "ed0b02b6-60d7-404e-ac72-88dcfb9619c4",
+      "topic": "여행-국내",
+      "question": "How was your last trip different from trips you took before?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "ba8be43c-c0ed-4248-b8b0-6544f92c98d5",
+      "topic": "여행-해외",
+      "question": "Tell me about a foreign country you want to visit.",
+      "status": "need",
+      "level": "보통",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "7911f88a-a3e1-4add-8c38-c658a842f3e5",
+      "topic": "여행-해외",
+      "question": "Describe an overseas trip you remember.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "4b906369-d7e9-41e7-81b9-00e02d938c27",
+      "topic": "여행-해외",
+      "question": "What problems can happen when traveling abroad?",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "8643a4ba-c52c-4b1e-a8f5-188a9cdf4edc",
+      "topic": "여행-해외",
+      "question": "Ask a travel agency about flights, hotels, and tour schedules.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "a49efacd-4531-436f-a67a-2956aedae58d",
+      "topic": "휴가/호텔",
+      "question": "How do you usually spend your vacation?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "1536973b-a328-483d-bcec-fdf16a070fa2",
+      "topic": "휴가/호텔",
+      "question": "Describe a hotel or accommodation you stayed at.",
+      "status": "need",
+      "level": "보통",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "f0af2535-a61b-4798-87c6-107edb5eb9b8",
+      "topic": "휴가/호텔",
+      "question": "Tell me about a problem you had during a vacation.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "8352b9a0-c7db-445f-95d7-fee27b8b29e7",
+      "topic": "휴가/호텔",
+      "question": "Call a hotel and ask three or four questions about a room.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "18ff0253-a1d9-412d-971c-10e6c3cc87d2",
+      "topic": "교통",
+      "question": "What kind of transportation do you use most often?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "e2674d0b-7fa4-41df-97ec-9bb9c1d8fb18",
+      "topic": "교통",
+      "question": "Describe your commute or the way you usually move around.",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "f5dc6306-ccd0-4bb1-9959-885dd1e884f9",
+      "topic": "교통",
+      "question": "Tell me about a transportation problem you experienced.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "28a3b54b-1453-47d6-a28f-e805bef125c4",
+      "topic": "교통",
+      "question": "Compare public transportation and driving.",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "5119afe0-1467-4949-85cb-8501665ebaf2",
+      "topic": "기술/인터넷",
+      "question": "What technology do you use every day?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "313778e4-fb53-4231-b809-731ff632d52d",
+      "topic": "기술/인터넷",
+      "question": "How do you usually use the internet?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "a8c1f25b-d5cd-4b86-998e-a522f0eeb90e",
+      "topic": "기술/인터넷",
+      "question": "Tell me about a time when technology caused a problem.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "8b746bd7-1ac4-4a7e-808c-c72f2455766e",
+      "topic": "기술/인터넷",
+      "question": "How has technology changed people's lives?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "27453e00-56ff-4ced-9fe9-8071b1d74c8b",
+      "topic": "휴대폰/SNS",
+      "question": "Describe your smartphone and how you use it.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "b66848bc-aef7-4b97-964d-474ff4536158",
+      "topic": "휴대폰/SNS",
+      "question": "What apps do you use most often?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "8b37a710-651f-4d31-ac00-3c768726026d",
+      "topic": "휴대폰/SNS",
+      "question": "Tell me about a time you lost or broke your phone.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "0ce51b83-78fe-41d9-993f-3ea0875cce57",
+      "topic": "휴대폰/SNS",
+      "question": "How do people communicate differently because of social media?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "c6ac9d52-b5f7-49af-910c-79b8dfae3ae6",
+      "topic": "날씨/계절",
+      "question": "What is the weather like where you live?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "f6502fa7-e9ef-4fe6-9c05-89170b99e106",
+      "topic": "날씨/계절",
+      "question": "What is your favorite season and why?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "2a9f15f5-2eaf-420c-8be5-cb19ec069d5f",
+      "topic": "날씨/계절",
+      "question": "Tell me about a day when the weather changed your plans.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "a9fc1547-c45c-4c83-8181-e961db29ad3a",
+      "topic": "날씨/계절",
+      "question": "How do people's activities change depending on the season?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "617de525-4b33-4586-8e32-fa314c33ce2c",
+      "topic": "명절/전통",
+      "question": "Tell me about a traditional holiday in your country.",
+      "status": "need",
+      "level": "보통",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "7073805d-9acd-4bd4-9fcd-0ec8dc9b5777",
+      "topic": "명절/전통",
+      "question": "What do you usually do during holidays?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "1d54fa65-98b4-4494-87c5-ed345a2602e8",
+      "topic": "명절/전통",
+      "question": "Describe a memorable holiday with your family.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "ea747d87-7dab-46ea-b78a-58b2c7d55db8",
+      "topic": "명절/전통",
+      "question": "How are holidays today different from the past?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "f754afeb-5a8a-4db5-ba99-81d291ce5e43",
+      "topic": "은행/병원/공공장소",
+      "question": "Tell me about a bank, hospital, or public office you often visit.",
+      "status": "need",
+      "level": "보통",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "ffccc4b5-2d8b-4f37-b9bf-2f86aadedde3",
+      "topic": "은행/병원/공공장소",
+      "question": "Describe what you usually do when you visit a hospital or bank.",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "e7251b43-8138-452a-8095-11b977bd81d6",
+      "topic": "은행/병원/공공장소",
+      "question": "Tell me about a problem you had at a public place.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "7c20dff4-a1db-4083-b72a-36144673fd54",
+      "topic": "은행/병원/공공장소",
+      "question": "Call a clinic and ask about available times, location, and fees.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "60eaf2b6-2c56-4287-85fb-de9775f00fb6",
+      "topic": "집안일/요리",
+      "question": "What housework do you usually do?",
+      "status": "need",
+      "level": "쉬움",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "e6b4d64b-f99c-44d0-a6e5-54bd4b39079c",
+      "topic": "집안일/요리",
+      "question": "Tell me about a dish you can cook.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "1f6fe907-f57d-4dc4-8a0d-7c6a223a465d",
+      "topic": "집안일/요리",
+      "question": "Describe a time you cooked for someone.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "2d97ec4c-7452-4da7-9613-5a2a17365b19",
+      "topic": "집안일/요리",
+      "question": "What do you do when something goes wrong while cooking?",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "0e5d5c88-8aec-453b-b513-be31559ca31d",
+      "topic": "반려동물/동식물",
+      "question": "Tell me about a pet or animal you like.",
+      "status": "need",
+      "level": "쉬움",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "98d7956d-4fbe-468c-bcbe-a0bad303f9a0",
+      "topic": "반려동물/동식물",
+      "question": "What do people usually do to take care of pets?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "5cfe9e86-7c8d-420b-81c4-3ca1ee4150dc",
+      "topic": "반려동물/동식물",
+      "question": "Describe a memorable experience with an animal.",
+      "status": "need",
+      "level": "보통",
+      "type": "과거경험",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "cc20eb0d-86be-461d-95ea-773d93312729",
+      "topic": "반려동물/동식물",
+      "question": "How has people's attitude toward pets changed?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "9cd172f1-4b2f-4e3a-b291-4a2414993c6e",
+      "topic": "재활용/환경",
+      "question": "What do you do to protect the environment?",
+      "status": "need",
+      "level": "보통",
+      "type": "습관",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "6d3a5833-9801-4db1-a350-838a35e1a081",
+      "topic": "재활용/환경",
+      "question": "Tell me about recycling in your neighborhood.",
+      "status": "need",
+      "level": "보통",
+      "type": "묘사",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "39d23147-f22a-4b17-b23f-1755ed262976",
+      "topic": "재활용/환경",
+      "question": "Describe an environmental problem you have noticed.",
+      "status": "need",
+      "level": "어려움",
+      "type": "문제해결",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "1fdcebbd-bc7a-4b11-93e1-5e7f8b16ed3e",
+      "topic": "재활용/환경",
+      "question": "How have environmental habits changed in your country?",
+      "status": "need",
+      "level": "어려움",
+      "type": "비교",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "d7512c41-a995-4dd9-a5c5-c5738196f57e",
+      "topic": "돌발 주제",
+      "question": "Tell me about a memorable piece of news you heard recently.",
+      "status": "need",
+      "level": "어려움",
+      "type": "돌발",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "3d06a9c0-e023-424a-b17c-3aa47122888f",
+      "topic": "돌발 주제",
+      "question": "Describe a recent change in your city or country.",
+      "status": "need",
+      "level": "어려움",
+      "type": "돌발",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "c12df6b9-4b13-42ce-a1a2-2b2f0d721693",
+      "topic": "돌발 주제",
+      "question": "What do people do when prices suddenly go up?",
+      "status": "need",
+      "level": "어려움",
+      "type": "돌발",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "478d43f4-38c4-4906-937a-eb66fb94d154",
+      "topic": "돌발 주제",
+      "question": "Talk about a machine or service that people use often these days.",
+      "status": "need",
+      "level": "어려움",
+      "type": "돌발",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "e350e39e-5a2f-4b67-89c8-348cc5812a4b",
+      "topic": "롤플레이",
+      "question": "You want to buy a new phone. Call the store and ask three or four questions.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "0a2dbc2f-b26a-470d-b352-a2810b21ad95",
+      "topic": "롤플레이",
+      "question": "You missed an appointment. Call your friend, explain the situation, and suggest a new time.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "ae9c8895-48d9-4f5e-b8eb-2eb32d91a25d",
+      "topic": "롤플레이",
+      "question": "You reserved a restaurant, but your plans changed. Call and change the reservation.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    },
+    {
+      "id": "1bf12dba-0ad8-4a6c-9077-7eff898b2276",
+      "topic": "롤플레이",
+      "question": "You received the wrong item. Call customer service and explain the problem.",
+      "status": "need",
+      "level": "어려움",
+      "type": "롤플레이",
+      "answerKo": "",
+      "answerEn": ""
+    }
+  ]
+}

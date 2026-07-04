@@ -1073,11 +1073,7 @@
         answerKo: String(item.answerKo || ""),
         answerEn: String(item.answerEn || item.answer || "")
       })).filter((item) => item.question.trim());
-      const existingQuestions = new Set(normalizedItems.map((item) => item.question.toLowerCase()));
-      const missingBankItems = sampleItems
-        .filter((item) => !existingQuestions.has(item.question.toLowerCase()))
-        .map((item) => ({ ...item, id: crypto.randomUUID() }));
-      return { topics: validTopics, items: [...normalizedItems, ...missingBankItems] };
+      return { topics: validTopics, items: normalizedItems };
     }
 
     function persist() {

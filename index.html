@@ -32,25 +32,24 @@
 
     .app {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 330px minmax(0, 1fr);
+      display: block;
     }
 
-    aside {
+    .topbar {
       background: #172026;
       color: #f7fbfb;
-      padding: 26px 20px;
+      padding: 18px 20px;
       position: sticky;
       top: 0;
-      height: 100vh;
-      overflow: auto;
+      z-index: 10;
+      box-shadow: 0 8px 24px rgba(13, 21, 26, .18);
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
     }
 
     .mark {
@@ -66,6 +65,57 @@
 
     h1 { margin: 0; font-size: 22px; line-height: 1.2; }
     .sub { margin: 4px 0 0; color: #aac0c4; font-size: 13px; }
+    .top-controls {
+      display: grid;
+      grid-template-columns: minmax(160px, 260px) minmax(170px, 1fr) repeat(6, auto);
+      gap: 8px;
+      align-items: center;
+    }
+    .topic-order-panel {
+      margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .06);
+    }
+    .topic-order-panel summary {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      cursor: pointer;
+      color: #dbe8ea;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .topic-drag-list {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 12px 12px;
+    }
+    .topic-drag-item {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 36px;
+      max-width: 220px;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .09);
+      color: #f7fbfb;
+      cursor: grab;
+      user-select: none;
+    }
+    .topic-drag-item.active { background: rgba(47, 181, 167, .28); }
+    .topic-drag-item.dragging, .q-card.dragging { opacity: .45; }
+    .topic-drag-item.drag-over, .q-card.drag-over { outline: 2px solid var(--brand); outline-offset: -2px; }
+    .drag-handle {
+      color: #aac0c4;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
     .side-section { margin-top: 22px; }
     .side-title {
       margin: 0 0 10px;
@@ -115,6 +165,11 @@
       color: #eef7f8;
     }
     .icon-btn:hover { background: rgba(255, 255, 255, .16); }
+    .modal .icon-btn {
+      background: #eef2f4;
+      color: var(--ink);
+    }
+    .modal .icon-btn:hover { background: #dde5ea; }
     .topic-tools {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
@@ -133,6 +188,10 @@
     }
     .side-input::placeholder { color: #aac0c4; }
     .side-actions { display: grid; gap: 8px; }
+    .compact-actions {
+      display: grid;
+      gap: 8px;
+    }
     .sync-panel {
       display: grid;
       gap: 8px;
@@ -164,12 +223,23 @@
       outline: 0;
       padding: 0 10px;
     }
+    .top-select {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 8px;
+      background: #253039;
+      color: #fff;
+      outline: 0;
+      padding: 0 10px;
+    }
     .ghost-btn {
       min-height: 40px;
       border: 1px solid rgba(255, 255, 255, .22);
       border-radius: 8px;
       background: transparent;
       color: #f7fbfb;
+      padding: 0 12px;
     }
 
     main { min-width: 0; padding: 28px; }
@@ -286,6 +356,7 @@
       border-bottom: 1px solid var(--line);
       background: #fff;
       text-align: left;
+      cursor: grab;
     }
     .q-card:hover, .q-card.active { background: #f2faf8; }
     .q-card strong { display: block; margin-bottom: 8px; line-height: 1.35; }
@@ -294,6 +365,12 @@
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 8px;
       align-items: start;
+    }
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
     }
     .speak-btn {
       min-height: 32px;
@@ -305,6 +382,10 @@
       font-weight: 700;
     }
     .speak-btn:hover { background: #d9ece8; }
+    .speak-btn:disabled {
+      cursor: default;
+      opacity: .45;
+    }
     .preview {
       margin: 0 0 9px;
       color: var(--muted);
@@ -316,6 +397,9 @@
     .tag.ready { background: #e4f5de; color: #2f6524; }
     .tag.draft { background: var(--warn); color: #8f5418; }
     .tag.need { background: #ffe8e1; color: var(--danger); }
+    .tag.done { background: #e4f5de; color: #2f6524; }
+    .tag.writing { background: var(--warn); color: #8f5418; }
+    .tag.empty { background: #ffe8e1; color: var(--danger); }
 
     .editor { padding: 18px; }
     .form-grid {
@@ -334,8 +418,9 @@
     .wide { grid-column: 1 / -1; }
     .question-field { grid-column: 2 / -1; }
     .answer-tools {
-      display: grid;
-      grid-template-columns: 1fr auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
       gap: 12px;
       align-items: center;
       margin-top: 12px;
@@ -366,6 +451,60 @@
     }
     .empty { padding: 28px 16px; color: var(--muted); text-align: center; line-height: 1.5; }
     .hidden-file { display: none; }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(13, 21, 26, .58);
+    }
+    .modal-backdrop.hidden { display: none; }
+    .modal {
+      width: min(620px, 100%);
+      max-height: min(760px, 92vh);
+      overflow: auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .28);
+      border: 1px solid var(--line);
+    }
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .modal-head h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .modal-body {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      padding: 0 18px 18px;
+    }
+    .modal-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
     .survey-shell {
       display: grid;
@@ -520,16 +659,18 @@
 
     @media (max-width: 1100px) {
       .workspace, .toolbar, .survey-hero, .ai-shell { grid-template-columns: 1fr; }
+      .top-controls { grid-template-columns: 1fr 1fr; }
       .survey-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .cards { max-height: none; }
     }
     @media (max-width: 920px) {
-      .app { grid-template-columns: 1fr; }
-      aside { position: static; height: auto; }
-      .topic-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .topbar { position: static; }
       .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 680px) {
+      .topbar { padding: 14px; }
+      .brand { align-items: flex-start; }
+      .top-controls { grid-template-columns: 1fr; }
       main { padding: 18px; }
       .topic-list, .stats, .form-grid, .notes, .answer-tools, .survey-options, .survey-summary, .ai-grid { grid-template-columns: 1fr; }
       .question-field { grid-column: 1; }
@@ -540,7 +681,7 @@
 </head>
 <body>
   <div class="app">
-    <aside>
+    <header class="topbar">
       <div class="brand">
         <div class="mark">OP</div>
         <div>
@@ -549,68 +690,21 @@
         </div>
       </div>
 
-      <section class="side-section">
-        <p class="side-title">Topics</p>
-        <div class="topic-tools">
-          <input class="side-input" id="topicNameInput" type="text" placeholder="새 주제 이름">
-          <button class="icon-btn" id="addTopicBtn" type="button" title="주제 추가">+</button>
-        </div>
-        <div class="topic-list" id="topicList"></div>
-      </section>
-
-      <section class="side-section">
-        <p class="side-title">Data</p>
-        <div class="side-actions">
-          <button class="ghost-btn" id="exportBtn" type="button">내보내기</button>
-          <button class="ghost-btn" id="importBtn" type="button">가져오기</button>
-          <button class="ghost-btn" id="resetBtn" type="button">오픽 기본 세트 복원</button>
-          <input class="hidden-file" id="importFile" type="file" accept="application/json">
-        </div>
-      </section>
-
-      <section class="side-section">
-        <p class="side-title">GitHub Sync</p>
-        <div class="sync-panel">
-          <div class="sync-grid">
-            <input class="side-input" id="githubOwnerInput" type="text" placeholder="owner">
-            <input class="side-input" id="githubRepoInput" type="text" placeholder="repo">
-          </div>
-          <div class="sync-grid">
-            <input class="side-input" id="githubBranchInput" type="text" placeholder="main">
-            <input class="side-input" id="githubPathInput" type="text" placeholder="data/opik.json">
-          </div>
-          <input class="side-input" id="githubTokenInput" type="password" placeholder="GitHub token">
-          <button class="ghost-btn" id="githubSaveConfigBtn" type="button">설정 저장</button>
-          <button class="ghost-btn" id="githubPullBtn" type="button">GitHub에서 불러오기</button>
-          <button class="ghost-btn" id="githubPushBtn" type="button">GitHub에 저장</button>
-          <div class="sync-status" id="githubStatus"></div>
-          <p class="sync-help">토큰은 이 브라우저에만 저장됩니다. fine-grained token에 해당 저장소 Contents 읽기/쓰기 권한만 주세요.</p>
-        </div>
-      </section>
-
-      <section class="side-section">
-        <p class="side-title">OpenAI AI</p>
-        <div class="sync-panel">
-          <input class="side-input" id="openaiKeyInput" type="password" placeholder="OpenAI API key">
-          <input class="side-input" id="openaiTextModelInput" type="text" placeholder="gpt-4.1-mini">
-          <select class="side-select" id="openaiVoiceInput" aria-label="OpenAI voice">
-            <option value="alloy">alloy</option>
-            <option value="coral">coral</option>
-            <option value="echo">echo</option>
-            <option value="fable">fable</option>
-            <option value="nova">nova</option>
-            <option value="sage">sage</option>
-            <option value="shimmer">shimmer</option>
-            <option value="verse">verse</option>
-            <option value="marin">marin</option>
-            <option value="cedar">cedar</option>
-          </select>
-          <button class="ghost-btn" id="openaiSaveConfigBtn" type="button">OpenAI 설정 저장</button>
-          <div class="sync-status" id="openaiStatus"></div>
-          <p class="sync-help">자연 음성과 AI 답변 생성에 사용합니다. 키는 이 브라우저에만 저장됩니다.</p>
-        </div>
-      </section>
-    </aside>
+      <div class="top-controls">
+        <select class="top-select" id="topicSelect" aria-label="주제 선택"></select>
+        <input class="side-input" id="topicNameInput" type="text" placeholder="새 주제 이름">
+        <button class="ghost-btn" id="addTopicBtn" type="button">주제 추가</button>
+        <button class="ghost-btn" id="editTopicBtn" type="button">이름 변경</button>
+        <button class="ghost-btn" id="deleteTopicBtn" type="button">주제 삭제</button>
+        <button class="ghost-btn" id="goQuestionListBtn" type="button">문제 보기</button>
+        <button class="ghost-btn" id="openGithubModalBtn" type="button">GitHub</button>
+        <button class="ghost-btn" id="openOpenAIModalBtn" type="button">OpenAI</button>
+      </div>
+      <details class="topic-order-panel">
+        <summary>주제 순서</summary>
+        <div class="topic-drag-list" id="topicDragList"></div>
+      </details>
+    </header>
 
     <main>
       <div class="view-tabs" role="tablist" aria-label="화면 선택">
@@ -623,10 +717,10 @@
         <div class="toolbar">
           <input class="search" id="searchInput" type="search" placeholder="질문, 한글 답변, 영어 답변, 주제 검색">
           <select class="select" id="statusFilter" aria-label="상태 필터">
-            <option value="all">전체 상태</option>
-            <option value="need">작성 필요</option>
-            <option value="draft">초안</option>
-            <option value="ready">암기 가능</option>
+            <option value="all">전체 답변 상태</option>
+            <option value="empty">미작성 포함</option>
+            <option value="writing">작성중 포함</option>
+            <option value="done">작성완료 포함</option>
           </select>
           <button class="primary-btn" id="newBtn" type="button">+ 새 문제</button>
         </div>
@@ -655,14 +749,24 @@
               <label>주제
                 <select class="select" id="topicInput"></select>
               </label>
-              <label class="question-field">예상 질문
+              <label>질문 유형
+                <select class="select" id="typeInput"></select>
+              </label>
+              <label class="wide">예상 질문
                 <input class="input" id="questionInput" type="text">
               </label>
-              <label>상태
-                <select class="select" id="statusInput">
-                  <option value="need">작성 필요</option>
-                  <option value="draft">초안</option>
-                  <option value="ready">암기 가능</option>
+              <label>한글답변 상태
+                <select class="select" id="koStatusInput">
+                  <option value="empty">미작성</option>
+                  <option value="writing">작성중</option>
+                  <option value="done">작성완료</option>
+                </select>
+              </label>
+              <label>영어답변 상태
+                <select class="select" id="enStatusInput">
+                  <option value="empty">미작성</option>
+                  <option value="writing">작성중</option>
+                  <option value="done">작성완료</option>
                 </select>
               </label>
               <label class="wide">한글 답변
@@ -674,7 +778,7 @@
             </div>
 
             <div class="answer-tools">
-              <div class="chips" id="levelChips" aria-label="난이도"></div>
+              <button class="secondary-btn" id="speakEnglishBtn" type="button">영어 답변 듣기</button>
               <button class="primary-btn" id="saveBtn" type="button">저장</button>
             </div>
 
@@ -747,6 +851,81 @@
     </main>
   </div>
 
+  <div class="modal-backdrop hidden" id="githubModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="githubModalTitle">
+      <div class="modal-head">
+        <h2 id="githubModalTitle">GitHub Sync 설정</h2>
+        <button class="icon-btn" id="closeGithubModalBtn" type="button" title="닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-grid">
+          <label>owner
+            <input class="input" id="githubOwnerInput" type="text" placeholder="GitHub 아이디">
+          </label>
+          <label>repo
+            <input class="input" id="githubRepoInput" type="text" placeholder="저장소 이름">
+          </label>
+        </div>
+        <div class="settings-grid">
+          <label>branch
+            <input class="input" id="githubBranchInput" type="text" placeholder="main">
+          </label>
+          <label>path
+            <input class="input" id="githubPathInput" type="text" placeholder="data/opik-answer-board.json">
+          </label>
+        </div>
+        <label>GitHub token
+          <input class="input" id="githubTokenInput" type="password" placeholder="github_pat_...">
+        </label>
+        <div class="ai-status" id="githubStatus"></div>
+        <p class="modal-note">답변 데이터를 GitHub JSON 파일로 저장하고 다른 기기에서 불러옵니다.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="secondary-btn" id="githubPullBtn" type="button">GitHub에서 불러오기</button>
+        <button class="secondary-btn" id="githubPushBtn" type="button">GitHub에 저장</button>
+        <button class="primary-btn" id="githubSaveConfigBtn" type="button">설정 저장</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="openaiModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="openaiModalTitle">
+      <div class="modal-head">
+        <h2 id="openaiModalTitle">OpenAI API 설정</h2>
+        <button class="icon-btn" id="closeOpenAIModalBtn" type="button" title="닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <label>OpenAI API key
+          <input class="input" id="openaiKeyInput" type="password" placeholder="sk-...">
+        </label>
+        <div class="settings-grid">
+          <label>텍스트 모델
+            <input class="input" id="openaiTextModelInput" type="text" placeholder="gpt-4.1-mini">
+          </label>
+          <label>음성
+            <select class="select" id="openaiVoiceInput" aria-label="OpenAI voice">
+              <option value="alloy">alloy</option>
+              <option value="coral">coral</option>
+              <option value="echo">echo</option>
+              <option value="fable">fable</option>
+              <option value="nova">nova</option>
+              <option value="sage">sage</option>
+              <option value="shimmer">shimmer</option>
+              <option value="verse">verse</option>
+              <option value="marin">marin</option>
+              <option value="cedar">cedar</option>
+            </select>
+          </label>
+        </div>
+        <div class="ai-status" id="openaiStatus"></div>
+        <p class="modal-note">자연 음성 듣기와 AI 영어 답변 생성에 사용합니다. 키는 이 브라우저에만 저장됩니다.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="primary-btn" id="openaiSaveConfigBtn" type="button">OpenAI 설정 저장</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const STORAGE_KEY = "opik-answer-board-v2";
     const OLD_STORAGE_KEY = "opik-answer-board-v1";
@@ -754,8 +933,8 @@
     const SURVEY_SELECTION_KEY = "opik-survey-selection-v1";
     const OPENAI_CONFIG_KEY = "opik-openai-config-v1";
     const ALL_TOPIC = "전체";
-    const statusLabel = { need: "작성 필요", draft: "초안", ready: "암기 가능" };
-    const levels = ["쉬움", "보통", "어려움"];
+    const answerStatusLabel = { empty: "미작성", writing: "작성중", done: "작성완료" };
+    const questionTypeOptions = ["묘사", "경험", "습관", "비교", "문제해결", "롤플레이", "돌발", "기본"];
     const surveySections = [
       {
         id: "profile",
@@ -854,7 +1033,7 @@
     ];
 
     function q(topic, question, level = "보통", type = "묘사") {
-      return { id: crypto.randomUUID(), topic, question, status: "need", level, type, answerKo: "", answerEn: "" };
+      return { id: crypto.randomUUID(), topic, question, type, answerKo: "", answerEn: "", koStatus: "empty", enStatus: "empty" };
     }
 
     const sampleItems = [
@@ -965,9 +1144,10 @@
     let items = state.items;
     let selectedTopic = ALL_TOPIC;
     let selectedId = items[0]?.id || null;
-    let selectedLevel = "보통";
     let activeView = "board";
     let surveySelections = loadSurveySelections();
+    let draggedTopic = null;
+    let draggedQuestionId = null;
 
     const el = {
       boardTabBtn: document.getElementById("boardTabBtn"),
@@ -976,9 +1156,12 @@
       boardPanel: document.getElementById("boardPanel"),
       surveyPanel: document.getElementById("surveyPanel"),
       aiPanel: document.getElementById("aiPanel"),
-      topicList: document.getElementById("topicList"),
+      topicSelect: document.getElementById("topicSelect"),
       topicNameInput: document.getElementById("topicNameInput"),
+      topicDragList: document.getElementById("topicDragList"),
       addTopicBtn: document.getElementById("addTopicBtn"),
+      editTopicBtn: document.getElementById("editTopicBtn"),
+      deleteTopicBtn: document.getElementById("deleteTopicBtn"),
       stats: document.getElementById("stats"),
       cards: document.getElementById("cards"),
       search: document.getElementById("searchInput"),
@@ -988,21 +1171,23 @@
       editorTitle: document.getElementById("editorTitle"),
       question: document.getElementById("questionInput"),
       topic: document.getElementById("topicInput"),
-      status: document.getElementById("statusInput"),
+      type: document.getElementById("typeInput"),
+      koStatus: document.getElementById("koStatusInput"),
+      enStatus: document.getElementById("enStatusInput"),
       answerKo: document.getElementById("answerKoInput"),
       answerEn: document.getElementById("answerEnInput"),
-      levelChips: document.getElementById("levelChips"),
       saveBtn: document.getElementById("saveBtn"),
       speakQuestionBtn: document.getElementById("speakQuestionBtn"),
+      speakEnglishBtn: document.getElementById("speakEnglishBtn"),
       deleteBtn: document.getElementById("deleteBtn"),
+      goQuestionListBtn: document.getElementById("goQuestionListBtn"),
       surveySummary: document.getElementById("surveySummary"),
       surveySections: document.getElementById("surveySections"),
       applySurveyBtn: document.getElementById("applySurveyBtn"),
       clearSurveyBtn: document.getElementById("clearSurveyBtn"),
-      exportBtn: document.getElementById("exportBtn"),
-      importBtn: document.getElementById("importBtn"),
-      importFile: document.getElementById("importFile"),
-      resetBtn: document.getElementById("resetBtn"),
+      openGithubModalBtn: document.getElementById("openGithubModalBtn"),
+      closeGithubModalBtn: document.getElementById("closeGithubModalBtn"),
+      githubModal: document.getElementById("githubModal"),
       githubOwner: document.getElementById("githubOwnerInput"),
       githubRepo: document.getElementById("githubRepoInput"),
       githubBranch: document.getElementById("githubBranchInput"),
@@ -1012,6 +1197,9 @@
       githubPullBtn: document.getElementById("githubPullBtn"),
       githubPushBtn: document.getElementById("githubPushBtn"),
       githubStatus: document.getElementById("githubStatus"),
+      openOpenAIModalBtn: document.getElementById("openOpenAIModalBtn"),
+      closeOpenAIModalBtn: document.getElementById("closeOpenAIModalBtn"),
+      openaiModal: document.getElementById("openaiModal"),
       openaiKey: document.getElementById("openaiKeyInput"),
       openaiTextModel: document.getElementById("openaiTextModelInput"),
       openaiVoice: document.getElementById("openaiVoiceInput"),
@@ -1058,6 +1246,33 @@
       return normalizeState({ topics: defaultTopicNames, items: sampleItems });
     }
 
+    function inferAnswerStatus(value, legacyStatus) {
+      const text = String(value || "").trim();
+      if (!text) return "empty";
+      if (legacyStatus === "ready") return "done";
+      return "writing";
+    }
+
+    function normalizeQuestionType(type, question = "") {
+      const raw = String(type || "").trim();
+      const aliases = {
+        "과거경험": "경험",
+        "경험담": "경험",
+        "일상": "습관",
+        "습관/루틴": "습관",
+        "문제 해결": "문제해결",
+        "문제해결": "문제해결",
+        "롤플레이": "롤플레이",
+        "돌발": "돌발",
+        "묘사": "묘사",
+        "비교": "비교",
+        "기본": "기본"
+      };
+      const normalized = aliases[raw] || raw;
+      if (questionTypeOptions.includes(normalized)) return normalized;
+      return inferType(question);
+    }
+
     function normalizeState(data) {
       const topicNames = Array.isArray(data?.topics) ? data.topics : defaultTopicNames;
       const normalizedTopics = [...new Set(topicNames.map((topic) => String(topic).trim()).filter(Boolean))];
@@ -1067,11 +1282,11 @@
         id: item.id || crypto.randomUUID(),
         topic: validTopics.includes(item.topic) ? item.topic : validTopics[0],
         question: String(item.question || ""),
-        status: ["need", "draft", "ready"].includes(item.status) ? item.status : "need",
-        level: levels.includes(item.level) ? item.level : "보통",
-        type: String(item.type || "묘사"),
+        type: normalizeQuestionType(item.type, item.question),
         answerKo: String(item.answerKo || ""),
-        answerEn: String(item.answerEn || item.answer || "")
+        answerEn: String(item.answerEn || item.answer || ""),
+        koStatus: ["empty", "writing", "done"].includes(item.koStatus) ? item.koStatus : inferAnswerStatus(item.answerKo, item.status),
+        enStatus: ["empty", "writing", "done"].includes(item.enStatus) ? item.enStatus : inferAnswerStatus(item.answerEn || item.answer, item.status)
       })).filter((item) => item.question.trim());
       return { topics: validTopics, items: normalizedItems };
     }
@@ -1108,6 +1323,20 @@
       el.aiTabBtn.setAttribute("aria-selected", String(isAI));
       if (isSurvey) renderSurvey();
       if (isAI) loadCurrentIntoAI(false);
+    }
+
+    function openModal(modal) {
+      modal.classList.remove("hidden");
+    }
+
+    function closeModal(modal) {
+      modal.classList.add("hidden");
+    }
+
+    function goToQuestionList() {
+      switchView("board");
+      const list = document.querySelector(".question-list");
+      if (list) list.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function selectedSurveyItems() {
@@ -1276,6 +1505,15 @@
     function speakCurrentQuestion() {
       const item = items.find((entry) => entry.id === selectedId);
       speakText(item?.question || el.question.value);
+    }
+
+    function speakCurrentEnglishAnswer() {
+      const text = el.answerEn.value.trim();
+      if (!text) {
+        alert("영어 답변이 없습니다.");
+        return;
+      }
+      speakText(text);
     }
 
     function extractResponseText(data) {
@@ -1509,41 +1747,28 @@
       const status = el.statusFilter.value;
       return items.filter((item) => {
         const matchesTopic = selectedTopic === ALL_TOPIC || item.topic === selectedTopic;
-        const matchesStatus = status === "all" || item.status === status;
+        const matchesStatus = status === "all" || item.koStatus === status || item.enStatus === status;
         const haystack = `${item.question} ${item.answerKo} ${item.answerEn} ${item.topic} ${item.type}`.toLowerCase();
         return matchesTopic && matchesStatus && haystack.includes(query);
       });
     }
 
     function renderTopics() {
-      el.topicList.innerHTML = "";
-      const allRow = document.createElement("div");
-      allRow.className = "topic-row";
-      allRow.innerHTML = `
-        <button class="topic-btn ${selectedTopic === ALL_TOPIC ? "active" : ""}" type="button">
-          <span class="topic-name">${ALL_TOPIC}</span><span class="pill">${items.length}</span>
-        </button>
-      `;
-      allRow.querySelector("button").addEventListener("click", () => selectTopic(ALL_TOPIC));
-      el.topicList.appendChild(allRow);
-
-      topics.forEach((topic) => {
-        const count = items.filter((item) => item.topic === topic).length;
-        const row = document.createElement("div");
-        row.className = "topic-row";
-        row.innerHTML = `
-          <button class="topic-btn ${topic === selectedTopic ? "active" : ""}" type="button">
-            <span class="topic-name">${escapeHtml(topic)}</span><span class="pill">${count}</span>
-          </button>
-          <button class="icon-btn" type="button" title="주제 이름 변경">✎</button>
-          <button class="icon-btn" type="button" title="주제 삭제">×</button>
-        `;
-        const buttons = row.querySelectorAll("button");
-        buttons[0].addEventListener("click", () => selectTopic(topic));
-        buttons[1].addEventListener("click", () => renameTopic(topic));
-        buttons[2].addEventListener("click", () => deleteTopic(topic));
-        el.topicList.appendChild(row);
-      });
+      const options = [
+        `<option value="${ALL_TOPIC}">${ALL_TOPIC} (${items.length})</option>`,
+        ...topics.map((topic) => {
+          const count = items.filter((item) => item.topic === topic).length;
+          return `<option value="${escapeHtml(topic)}">${escapeHtml(topic)} (${count})</option>`;
+        })
+      ];
+      el.topicSelect.innerHTML = options.join("");
+      el.topicSelect.value = topics.includes(selectedTopic) || selectedTopic === ALL_TOPIC ? selectedTopic : ALL_TOPIC;
+      const topicEditable = el.topicSelect.value !== ALL_TOPIC;
+      el.editTopicBtn.disabled = !topicEditable;
+      el.deleteTopicBtn.disabled = !topicEditable;
+      el.editTopicBtn.style.opacity = topicEditable ? "1" : ".45";
+      el.deleteTopicBtn.style.opacity = topicEditable ? "1" : ".45";
+      renderTopicDragList();
     }
 
     function selectTopic(topic) {
@@ -1600,15 +1825,67 @@
       render();
     }
 
+    function renderTopicDragList() {
+      el.topicDragList.innerHTML = "";
+      topics.forEach((topic) => {
+        const count = items.filter((item) => item.topic === topic).length;
+        const entry = document.createElement("div");
+        entry.className = `topic-drag-item ${topic === selectedTopic ? "active" : ""}`;
+        entry.draggable = true;
+        entry.dataset.topic = topic;
+        entry.innerHTML = `
+          <span class="drag-handle">::</span>
+          <span class="topic-name">${escapeHtml(topic)}</span>
+          <span class="pill">${count}</span>
+        `;
+        entry.addEventListener("click", () => selectTopic(topic));
+        entry.addEventListener("dragstart", (event) => {
+          draggedTopic = topic;
+          entry.classList.add("dragging");
+          event.dataTransfer.effectAllowed = "move";
+          event.dataTransfer.setData("text/plain", topic);
+        });
+        entry.addEventListener("dragover", (event) => {
+          event.preventDefault();
+          entry.classList.add("drag-over");
+        });
+        entry.addEventListener("dragleave", () => entry.classList.remove("drag-over"));
+        entry.addEventListener("drop", (event) => {
+          event.preventDefault();
+          entry.classList.remove("drag-over");
+          reorderTopic(event.dataTransfer.getData("text/plain") || draggedTopic, topic);
+        });
+        entry.addEventListener("dragend", () => {
+          entry.classList.remove("dragging");
+          draggedTopic = null;
+        });
+        el.topicDragList.appendChild(entry);
+      });
+    }
+
+    function reorderTopic(sourceTopic, targetTopic) {
+      if (!sourceTopic || !targetTopic || sourceTopic === targetTopic) return;
+      const sourceIndex = topics.indexOf(sourceTopic);
+      const targetIndex = topics.indexOf(targetTopic);
+      if (sourceIndex < 0 || targetIndex < 0) return;
+      const nextTopics = [...topics];
+      const [movedTopic] = nextTopics.splice(sourceIndex, 1);
+      nextTopics.splice(targetIndex, 0, movedTopic);
+      topics = nextTopics;
+      selectedTopic = movedTopic;
+      persist();
+      render();
+    }
+
     function renderStats() {
-      const ready = items.filter((item) => item.status === "ready").length;
-      const draft = items.filter((item) => item.status === "draft").length;
-      const need = items.filter((item) => item.status === "need").length;
-      const progress = items.length ? Math.round((ready / items.length) * 100) : 0;
+      const koDone = items.filter((item) => item.koStatus === "done").length;
+      const enDone = items.filter((item) => item.enStatus === "done").length;
+      const bothDone = items.filter((item) => item.koStatus === "done" && item.enStatus === "done").length;
+      const progress = items.length ? Math.round((bothDone / items.length) * 100) : 0;
       const stats = [
         ["총 문제", items.length],
         ["주제", topics.length],
-        ["초안/작성필요", `${draft}/${need}`],
+        ["한글/영어 완료", `${koDone}/${enDone}`],
         ["진행률", `${progress}%`]
       ];
       el.stats.innerHTML = stats.map(([label, value]) => `<div class="stat"><b>${value}</b><span>${label}</span></div>`).join("");
@@ -1630,19 +1907,23 @@
         const button = document.createElement("div");
         button.className = `q-card ${item.id === selectedId ? "active" : ""}`;
         button.tabIndex = 0;
+        button.draggable = true;
+        button.dataset.id = item.id;
         button.setAttribute("role", "button");
         const preview = item.answerEn || item.answerKo || "";
         button.innerHTML = `
           <div class="question-line">
             <strong>${escapeHtml(item.question)}</strong>
-            <button class="speak-btn" type="button">듣기</button>
+            <div class="card-actions">
+              <button class="speak-btn" data-action="speak" type="button">듣기</button>
+            </div>
           </div>
           ${preview ? `<p class="preview">${escapeHtml(preview.slice(0, 110))}${preview.length > 110 ? "..." : ""}</p>` : ""}
           <div class="meta">
             <span class="tag">${escapeHtml(item.topic)}</span>
             <span class="tag">${escapeHtml(item.type)}</span>
-            <span class="tag ${item.status}">${statusLabel[item.status]}</span>
-            <span class="tag">${escapeHtml(item.level)}</span>
+            <span class="tag ${item.koStatus}">한글 ${answerStatusLabel[item.koStatus]}</span>
+            <span class="tag ${item.enStatus}">영어 ${answerStatusLabel[item.enStatus]}</span>
           </div>
         `;
         button.addEventListener("click", () => {
@@ -1656,50 +1937,79 @@
             render();
           }
         });
-        button.querySelector(".speak-btn").addEventListener("click", (event) => {
+        button.querySelector('[data-action="speak"]').addEventListener("click", (event) => {
           event.stopPropagation();
           speakText(item.question);
+        });
+        button.addEventListener("dragstart", (event) => {
+          draggedQuestionId = item.id;
+          button.classList.add("dragging");
+          event.dataTransfer.effectAllowed = "move";
+          event.dataTransfer.setData("text/plain", item.id);
+        });
+        button.addEventListener("dragover", (event) => {
+          event.preventDefault();
+          button.classList.add("drag-over");
+        });
+        button.addEventListener("dragleave", () => button.classList.remove("drag-over"));
+        button.addEventListener("drop", (event) => {
+          event.preventDefault();
+          button.classList.remove("drag-over");
+          reorderQuestion(event.dataTransfer.getData("text/plain") || draggedQuestionId, item.id);
+        });
+        button.addEventListener("dragend", () => {
+          button.classList.remove("dragging");
+          draggedQuestionId = null;
         });
         el.cards.appendChild(button);
       });
     }
 
+    function reorderQuestion(sourceId, targetId) {
+      if (!sourceId || !targetId || sourceId === targetId) return;
+      const visible = filteredItems();
+      const sourceIndex = visible.findIndex((item) => item.id === sourceId);
+      const targetIndex = visible.findIndex((item) => item.id === targetId);
+      if (sourceIndex < 0 || targetIndex < 0) return;
+      const reordered = [...visible];
+      const [movedItem] = reordered.splice(sourceIndex, 1);
+      reordered.splice(targetIndex, 0, movedItem);
+      const reorderedById = new Map(reordered.map((item) => [item.id, item]));
+      const visibleIds = new Set(reordered.map((item) => item.id));
+      let cursor = 0;
+      items = items.map((item) => {
+        if (!visibleIds.has(item.id)) return item;
+        const nextId = reordered[cursor++].id;
+        return reorderedById.get(nextId);
+      });
+      selectedId = sourceId;
+      persist();
+      render();
+    }
+
     function renderEditor() {
       el.topic.innerHTML = topics.map((topic) => `<option value="${escapeHtml(topic)}">${escapeHtml(topic)}</option>`).join("");
+      el.type.innerHTML = questionTypeOptions.map((type) => `<option value="${escapeHtml(type)}">${escapeHtml(type)}</option>`).join("");
       const item = items.find((entry) => entry.id === selectedId);
       if (!item) {
         el.editorTitle.textContent = "새 문제 만들기";
         el.topic.value = selectedTopic === ALL_TOPIC ? topics[0] : selectedTopic;
+        el.type.value = "묘사";
         el.question.value = "";
-        el.status.value = "need";
+        el.koStatus.value = "empty";
+        el.enStatus.value = "empty";
         el.answerKo.value = "";
         el.answerEn.value = "";
-        selectedLevel = "보통";
       } else {
         el.editorTitle.textContent = "답변 편집";
         el.topic.value = item.topic;
+        el.type.value = normalizeQuestionType(item.type, item.question);
         el.question.value = item.question;
-        el.status.value = item.status;
+        el.koStatus.value = item.koStatus || inferAnswerStatus(item.answerKo, item.status);
+        el.enStatus.value = item.enStatus || inferAnswerStatus(item.answerEn, item.status);
         el.answerKo.value = item.answerKo;
         el.answerEn.value = item.answerEn;
-        selectedLevel = item.level || "보통";
       }
-      renderLevelChips();
-    }
-
-    function renderLevelChips() {
-      el.levelChips.innerHTML = "";
-      levels.forEach((level) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = `chip ${level === selectedLevel ? "active" : ""}`;
-        button.textContent = level;
-        button.addEventListener("click", () => {
-          selectedLevel = level;
-          renderLevelChips();
-        });
-        el.levelChips.appendChild(button);
-      });
     }
 
     function saveCurrent() {
@@ -1711,9 +2021,9 @@
       const payload = {
         topic: el.topic.value,
         question,
-        status: el.status.value,
-        level: selectedLevel,
-        type: inferType(question),
+        type: el.type.value,
+        koStatus: el.koStatus.value,
+        enStatus: el.enStatus.value,
         answerKo: el.answerKo.value.trim(),
         answerEn: el.answerEn.value.trim()
       };
@@ -1736,13 +2046,12 @@
       if (text.includes("problem") || text.includes("wrong") || text.includes("solve")) return "문제해결";
       if (text.includes("different") || text.includes("compare") || text.includes("changed")) return "비교";
       if (text.includes("usually") || text.includes("typical") || text.includes("often")) return "습관";
-      if (text.includes("remember") || text.includes("recent") || text.includes("last")) return "과거경험";
+      if (text.includes("remember") || text.includes("recent") || text.includes("last")) return "경험";
       return "묘사";
     }
 
     function createNew() {
       selectedId = null;
-      selectedLevel = "보통";
       renderEditor();
       el.topic.focus();
     }
@@ -1829,24 +2138,35 @@
     el.practiceBtn.addEventListener("click", practiceRandom);
     el.saveBtn.addEventListener("click", saveCurrent);
     el.speakQuestionBtn.addEventListener("click", speakCurrentQuestion);
+    el.speakEnglishBtn.addEventListener("click", speakCurrentEnglishAnswer);
     el.deleteBtn.addEventListener("click", deleteCurrent);
+    el.goQuestionListBtn.addEventListener("click", goToQuestionList);
     el.applySurveyBtn.addEventListener("click", applySurveyToBoard);
     el.clearSurveyBtn.addEventListener("click", clearSurvey);
     el.addTopicBtn.addEventListener("click", addTopic);
+    el.editTopicBtn.addEventListener("click", () => {
+      if (selectedTopic !== ALL_TOPIC) renameTopic(selectedTopic);
+    });
+    el.deleteTopicBtn.addEventListener("click", () => {
+      if (selectedTopic !== ALL_TOPIC) deleteTopic(selectedTopic);
+    });
+    el.topicSelect.addEventListener("change", (event) => selectTopic(event.target.value));
     el.topicNameInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") addTopic();
     });
-    el.exportBtn.addEventListener("click", exportData);
-    el.importBtn.addEventListener("click", () => el.importFile.click());
-    el.importFile.addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      if (file) importData(file);
-      event.target.value = "";
+    el.openGithubModalBtn.addEventListener("click", () => openModal(el.githubModal));
+    el.closeGithubModalBtn.addEventListener("click", () => closeModal(el.githubModal));
+    el.githubModal.addEventListener("click", (event) => {
+      if (event.target === el.githubModal) closeModal(el.githubModal);
     });
-    el.resetBtn.addEventListener("click", resetSample);
     el.githubSaveConfigBtn.addEventListener("click", saveGithubConfig);
     el.githubPullBtn.addEventListener("click", pullFromGithub);
     el.githubPushBtn.addEventListener("click", pushToGithub);
+    el.openOpenAIModalBtn.addEventListener("click", () => openModal(el.openaiModal));
+    el.closeOpenAIModalBtn.addEventListener("click", () => closeModal(el.openaiModal));
+    el.openaiModal.addEventListener("click", (event) => {
+      if (event.target === el.openaiModal) closeModal(el.openaiModal);
+    });
     el.openaiSaveConfigBtn.addEventListener("click", saveOpenAIConfig);
     el.aiLoadCurrentBtn.addEventListener("click", () => loadCurrentIntoAI(true));
     el.aiGenerateBtn.addEventListener("click", generateAIAnswer);

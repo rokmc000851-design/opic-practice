@@ -67,9 +67,22 @@
     .sub { margin: 4px 0 0; color: #aac0c4; font-size: 13px; }
     .top-controls {
       display: grid;
-      grid-template-columns: minmax(160px, 1fr) auto;
+      grid-template-columns: auto minmax(160px, 1fr) auto;
       gap: 8px;
       align-items: center;
+    }
+    .topic-select-label {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .09);
+      color: #dbe8ea;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
     }
     .top-actions {
       display: flex;
@@ -89,11 +102,19 @@
       min-height: 38px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       padding: 0 12px;
       cursor: pointer;
       color: #dbe8ea;
       font-weight: 700;
       font-size: 13px;
+    }
+    .topic-order-status {
+      color: #aac0c4;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
     }
     .topic-drag-list {
       display: flex;
@@ -710,7 +731,7 @@
 
     @media (max-width: 1100px) {
       .workspace, .toolbar, .survey-hero, .ai-shell { grid-template-columns: 1fr; }
-      .top-controls { grid-template-columns: minmax(0, 1fr) auto; }
+      .top-controls { grid-template-columns: auto minmax(0, 1fr) auto; }
       .survey-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .cards { max-height: none; }
     }
@@ -721,7 +742,8 @@
     @media (max-width: 680px) {
       .topbar { padding: 14px; }
       .brand { align-items: flex-start; }
-      .top-controls { grid-template-columns: minmax(0, 1fr) auto; gap: 6px; }
+      .top-controls { grid-template-columns: auto minmax(0, 1fr) auto; gap: 5px; }
+      .topic-select-label { min-height: 36px; padding: 0 7px; font-size: 11px; }
       .top-controls .ghost-btn { min-height: 36px; padding: 0 9px; font-size: 12px; }
       .top-actions .side-input { min-width: 120px; min-height: 32px; font-size: 12px; }
       main { padding: 18px; }
@@ -759,6 +781,7 @@
       </div>
 
       <div class="top-controls">
+        <div class="topic-select-label">주제 선택</div>
         <select class="top-select" id="topicSelect" aria-label="주제 선택"></select>
         <button class="ghost-btn" id="goQuestionListBtn" type="button">문제 보기</button>
       </div>
@@ -771,7 +794,7 @@
         <button class="ghost-btn" id="openOpenAIModalBtn" type="button">OpenAI</button>
       </div>
       <details class="topic-order-panel">
-        <summary>주제 순서</summary>
+        <summary><span>주제 순서</span><span class="topic-order-status" id="topicOrderStatus">자동 저장</span></summary>
         <div class="topic-drag-list" id="topicDragList"></div>
       </details>
     </header>
@@ -1246,6 +1269,7 @@
       topicSelect: document.getElementById("topicSelect"),
       topicNameInput: document.getElementById("topicNameInput"),
       topicDragList: document.getElementById("topicDragList"),
+      topicOrderStatus: document.getElementById("topicOrderStatus"),
       addTopicBtn: document.getElementById("addTopicBtn"),
       editTopicBtn: document.getElementById("editTopicBtn"),
       deleteTopicBtn: document.getElementById("deleteTopicBtn"),
@@ -1367,10 +1391,12 @@
     }
 
     function normalizeState(data) {
-      const topicNames = Array.isArray(data?.topics) ? data.topics : defaultTopicNames;
+      const hasSavedTopics = Array.isArray(data?.topics) && data.topics.length;
+      const topicNames = hasSavedTopics ? data.topics : defaultTopicNames;
       const normalizedTopics = [...new Set(topicNames.map((topic) => String(topic).trim()).filter(Boolean))];
-      const validTopics = [...new Set([...defaultTopicNames, ...(normalizedTopics.length ? normalizedTopics : defaultTopicNames)])];
       const rawItems = Array.isArray(data?.items) ? data.items : sampleItems;
+      const itemTopics = rawItems.map((item) => String(item.topic || "").trim()).filter(Boolean);
+      const validTopics = [...new Set([...(normalizedTopics.length ? normalizedTopics : defaultTopicNames), ...itemTopics])];
       const normalizedItems = rawItems.map((item) => ({
         id: item.id || crypto.randomUUID(),
         topic: validTopics.includes(item.topic) ? item.topic : validTopics[0],
@@ -1386,6 +1412,17 @@
 
     function persist() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ topics, items }));
+    }
+
+    function setTopicOrderStatus(message = "자동 저장") {
+      if (!el.topicOrderStatus) return;
+      el.topicOrderStatus.textContent = message;
+      if (message !== "자동 저장") {
+        window.clearTimeout(setTopicOrderStatus.timer);
+        setTopicOrderStatus.timer = window.setTimeout(() => {
+          el.topicOrderStatus.textContent = "자동 저장";
+        }, 1600);
+      }
     }
 
     function loadSurveySelections() {
@@ -2035,6 +2072,7 @@
       selectedTopic = movedTopic;
       persist();
       render();
+      setTopicOrderStatus("순서 저장됨");
     }
 
     function renderStats() {

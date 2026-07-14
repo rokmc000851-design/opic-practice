@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-14T09:30:42.087Z",
+  "updatedAt": "2026-07-14T12:25:49.119Z",
   "topics": [
     "자기소개",
     "직장/학교",
@@ -80,19 +80,19 @@
       "enStatus": "empty"
     },
     {
-      "id": "679d5c1f-c957-4150-a7a2-f8e9e119cbf2",
+      "id": "635a5ba1-3cef-46a8-91ea-45e5cdb30839",
       "topic": "집/동네",
-      "question": "Tell me about your neighborhood.",
+      "question": "Describe your home in detail.",
       "type": "묘사",
-      "answerKo": "우리 동네 수원",
+      "answerKo": "",
       "answerEn": "",
       "koStatus": "empty",
       "enStatus": "empty"
     },
     {
-      "id": "635a5ba1-3cef-46a8-91ea-45e5cdb30839",
+      "id": "679d5c1f-c957-4150-a7a2-f8e9e119cbf2",
       "topic": "집/동네",
-      "question": "Describe your home in detail.",
+      "question": "Tell me about your neighborhood.",
       "type": "묘사",
       "answerKo": "",
       "answerEn": "",

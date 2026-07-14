@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-07-14T09:28:32.940Z",
+  "updatedAt": "2026-07-14T09:30:42.087Z",
   "topics": [
     "자기소개",
     "직장/학교",
@@ -84,7 +84,7 @@
       "topic": "집/동네",
       "question": "Tell me about your neighborhood.",
       "type": "묘사",
-      "answerKo": "",
+      "answerKo": "우리 동네 수원",
       "answerEn": "",
       "koStatus": "empty",
       "enStatus": "empty"
